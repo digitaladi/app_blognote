@@ -13,16 +13,25 @@
  */
 return [
     'app' => [
+        #c'est dans le fichier app.js qu'on désigne nos fichiers css et js
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+
+
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
+
+    
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
+
+
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+
+    
 ];

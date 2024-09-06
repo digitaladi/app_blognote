@@ -1,0 +1,23 @@
+{# cette page étend le twig base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}blognote
+{% endblock %}
+
+{% block body %}
+
+	<h1>La page home</h1>
+	{% if is_actif == true %}
+
+		{% for prenom in prenoms %}
+			<h3>Hello
+				{{ prenom }}
+				✅</h3>
+
+		{% endfor %}
+
+
+	{% endif %}
+
+
+{% endblock %}
