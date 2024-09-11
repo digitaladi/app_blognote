@@ -29,15 +29,17 @@
         }) }}
 
 	</div>
-	<div>
-		{{ form_row(registrationForm.agreeTerms) }}
-	</div>
 
+	<!--
+	<div>
+		{# {{ form_row(registrationForm.agreeTerms) }} #}
+	</div>
+-->
 	<button type="submit" class="btn">M'inscrire</button>
 	{{ form_end(registrationForm) }}
 
 
 		<p>Déja inscrit (e) ?
-			<a href="{{ path("app_login") }}">Me connecter</a>
+			<a href="{{ path('app_login') }}">Me connecter</a>
 		</p>
 	{% endblock %}
