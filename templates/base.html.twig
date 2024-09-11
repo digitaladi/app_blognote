@@ -20,7 +20,10 @@
 		{% endblock %}
 	</head>
 	<body>
+
+
 		{% for messages  in app.flashes %}
+
 			{% for message in messages %}
 				<p>{{ message|raw }}</p>
 			{% endfor %}

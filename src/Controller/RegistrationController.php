@@ -29,6 +29,8 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
+
+            //on récupère le mot de passe rentré
             $plainPassword = $form->get('plainPassword')->getData();
 
             // encode the plain password
@@ -48,7 +50,7 @@ class RegistrationController extends AbstractController
                 'alg' => 'HS256'
             ];
 
-            //payload
+            //payload avec l'id du user inscris
             $payload = [
                 'user_id' => $user->getId()
             ];
@@ -59,12 +61,12 @@ class RegistrationController extends AbstractController
 
             //dd($token);
 
-
+            //on envoie le mail
             $mail->send(
                 'no-reply@blognote.test',
                 $user->getEmail(),
                 'Activation de votre compte sur le site blognote',
-                'register',
+                'register', //le template
                 compact('user', 'token') // ['user' => $user, token => $token]
             );
 
@@ -75,16 +77,17 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
+            'registrationForm' => $form->createView(),
         ]);
     }
 
 
 
     //vérifie si le token est valide si c'est le cas on s'inscrie
+    //il faut cliquer le lien récu par mail après l'inscription
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifUser($token, JWTService $JWT, UserRepository $userRepository, EntityManagerInterface $entityManager): Response{
-
+        //dd("aladi");
         //on vérifie si le token est valide (pas d'erreur, pas éxpiré, et une signature correcte)
 
         if($JWT->isValid($token) && !$JWT->isExpired($token) && $JWT->check($token, $this->getParameter('app.jwt_secret'))){
@@ -99,7 +102,7 @@ class RegistrationController extends AbstractController
 
             //on vérifie qu(on a bien un user et qu'il n'est pas actif)
 
-            if($user && ! $user->isVerified()){
+            if($user && !$user->isVerified()){
                 $user->setVerified(true);
                 $entityManager->flush();
                 $this->addFlash('success', 'Utilisateur activé');
