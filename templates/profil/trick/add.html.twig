@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ajout d'astuce
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="example-wrapper">
+		<h1>Ajouter un astuce</h1>
+		<div>
+			{{ form_start(trickForm) }}
+			{{ form_row(trickForm.title) }}
+			{{ form_row(trickForm.content) }}
+			{{ form_row(trickForm.featureimage) }}
+			{{ form_row(trickForm.categorie) }}
+			{{ form_row(trickForm.keyword) }}
+			<button type="submit">Ajouter</button>
+			{{ form_end(trickForm) }}
+		</div>
+
+
+	</div>
+{% endblock %}
