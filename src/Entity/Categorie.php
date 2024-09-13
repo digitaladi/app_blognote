@@ -22,6 +22,7 @@ class Categorie
     private ?string $slug = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private ?self $parent = null;
 
     /**
