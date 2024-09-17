@@ -5,6 +5,7 @@ namespace App\Controller\Profil;
 use App\Entity\Trick;
 use App\Form\AddTrickFormType;
 use App\Repository\UserRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,7 @@ class TrickController extends AbstractController
 
 
     #[Route('/addTrick', name: 'add')]
-    public function addTrick(Request $request, SluggerInterface $slugger, EntityManagerInterface $em, UserRepository $userRepository): Response
+    public function addTrick(Request $request, SluggerInterface $slugger, EntityManagerInterface $em, UserRepository $userRepository, PictureService $pictureService): Response
     {
         //on initialise  l'astuce
         $trick = new Trick();
@@ -37,7 +38,7 @@ class TrickController extends AbstractController
 
         //on initialise le formulaire lié à l'astuce
         $trickForm = $this->createForm(AddTrickFormType::class, $trick);
-
+        //dd($this->getUser());
 
           //on traite le formualaire
           $trickForm->handleRequest($request);
@@ -47,9 +48,13 @@ class TrickController extends AbstractController
 
                 //on crée le slug à parti du nom de l'astuce
                 $slug = strtolower($slugger->slug($trick->getTitle()) );
-
-                $trick->setUser($userRepository->find(9));
-                $trick->setFeatureimage("default.png")   ;
+              //     dd($this->getUser());
+                $trick->setUser($this->getUser());
+              //  dd($featuredImage);
+               $featuredImage = $trickForm->get('featureimage')->getData();
+              
+               $image = $pictureService->square($featuredImage, '/tricks', 300);
+                $trick->setFeatureimage($image)   ;
 
 
 

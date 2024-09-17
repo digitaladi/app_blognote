@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
@@ -21,6 +24,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\Length(
+        min:3,
+        max:25, 
+        minMessage:"Minimum {{ limit }} caractères", //limit vaut 3 
+        maxMessage:"Maximum {{ limit }} caractères")] //limit vaut 25
     private ?string $username = null;
 
     /**
@@ -35,7 +43,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255)] //annotations ORM DOCTRINE
+    #[Assert\Email(
+        message: 'L\'adresse  email {{ value }} n\'est pas valide.',
+    )] //constraintes
     private ?string $email = null;
 
     #[ORM\Column]

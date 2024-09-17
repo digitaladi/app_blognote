@@ -11,3 +11,23 @@ body {
     background-color: white;
     align-items: center;
 }
+
+
+
+
+.text-red{
+    color: red;
+}
+
+.text-orange{
+    color: orange;
+}
+
+.text-green{
+    color: green;
+}
+
+
+.preview{
+    display: none;
+}

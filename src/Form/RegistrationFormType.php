@@ -6,20 +6,27 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
+            ->add('username', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Minimum 3 caractères'
+                ]
+            ])
             ->add('email')
-/*
+
+            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -29,7 +36,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-*/
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -37,14 +44,25 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez renter votre mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
+                       // 'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+                    //un mot de passe très fort
+
+                    /*
+                    new PasswordStrength(
+                        minScore: PasswordStrength::STRENGTH_STRONG
+                        //PasswordStrength::STRENGTH_WEAK = 1
+                        //PasswordStrength::STRENGTH_MEDIUM = 2
+                        //PasswordStrength::STRENGTH_STRONG = 3
+                        //PasswordStrength::STRENGTH_VERY_STRONG = 4
+                    )
+                        */
                 ],
             ])
         ;

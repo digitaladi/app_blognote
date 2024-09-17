@@ -3,6 +3,11 @@
 {% block title %}ajout d'astuce
 {% endblock %}
 
+
+{% block importmap %}
+	{{ importmap(['app', 'add-trick']) }}
+{% endblock %}
+
 {% block body %}
 
 
@@ -13,6 +18,9 @@
 			{{ form_row(trickForm.title) }}
 			{{ form_row(trickForm.content) }}
 			{{ form_row(trickForm.featureimage) }}
+			<div class="preview">
+				<img src="" alt="" width="300"/>
+			</div>
 			{{ form_row(trickForm.categorie) }}
 			{{ form_row(trickForm.keyword) }}
 			<button type="submit">Ajouter</button>

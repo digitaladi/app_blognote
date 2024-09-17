@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AddTrickFormType extends AbstractType
 {
@@ -20,7 +23,10 @@ class AddTrickFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre de l\'astuce'
+                'label' => 'Titre de l\'astuce',
+                'constraints' => [
+                    new NotBlank()
+                ]
 
             ])
          
@@ -28,8 +34,32 @@ class AddTrickFormType extends AbstractType
                 'label' => 'Le descriptif de l\'astuce'
             ])
             ->add('featureimage', FileType::class, [
+
                'label' => 'Image d\'illustration',
-               'mapped' => false
+               'mapped' => false,
+              // 'multiple' => true,
+              'attr'=>[
+                'accept' => 'image/png, image/jpeg, image/webp'
+              ],
+               'constraints' => [
+            //    new All( //permet de mettre des contraintes sur plusieurs 
+                  
+                    new Image(
+                        minWidth: 200,
+                        maxWidth: 4000,
+                        minHeight: 200,
+                        maxHeight: 4000,
+                        allowPortrait: true,
+                        mimeTypes: [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp'
+                        ]
+                    )
+
+        //    ),
+
+            ]
             ])
 
 /*

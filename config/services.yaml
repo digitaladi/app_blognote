@@ -10,6 +10,10 @@ parameters:
     # On peut aussi le récuperer partout 
     app.jwt_secret: '%env(JWT_SECRET)%'
 
+
+    #dossier d'Upload 
+    # correspond le nom de notre projet racine ici c'est app
+    uploads_directory: '%kernel.project_dir%/public/uploads'
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -19,7 +19,7 @@ class KeywordFixtures extends Fixture
 
 public function load(ObjectManager $manager)
 {
-    $keywords = [ 'Bricolage', 'Santé', 'Bien-etre', 'Travail', 'Sport', 'Décoration', 'Informatique', 'Couple'  ];
+    $keywords = [ 'Bricolage', 'Santé', 'Bien-etre', 'Travail', 'Sport', 'Décoration', 'Informatique', 'Couple' ];
 
 
     foreach ($keywords as  $value) {

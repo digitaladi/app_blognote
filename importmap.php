@@ -12,9 +12,24 @@
  * The "importmap:require" command can be used to add new entries to this file.
  */
 return [
+     //point d'entrée
     'app' => [
-        #c'est dans le fichier app.js qu'on désigne nos fichiers css et js
+        #la clé app pour charger app.js'
         'path' => './assets/app.js',
+        'entrypoint' => true,
+    ],
+
+    //point d'entrée du fichier register.js
+    'register' => [
+        #la clé register pour charger register.js'
+        'path' => './assets/js/register.js',
+        'entrypoint' => true,
+    ],
+
+        //point d'entrée du fichier register.js
+    'add-trick' => [
+        #la clé register pour charger register.js'
+        'path' => './assets/js/addTrick.js',
         'entrypoint' => true,
     ],
 
