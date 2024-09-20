@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrickController!{% endblock %}
+{% block title %}Mes astuces
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/blognote/src/Controller/Profil/TrickController.php</code></li>
-        <li>Your template at <code>/var/www/html/blognote/templates/profil/trick/index.html.twig</code></li>
-    </ul>
-</div>
+	<div class="body-wrapper">
+
+		<h1>Mes astuces ✅</h1>
+
+
+		<section id="wrap_tricks">
+
+			{% for trick in tricks %}
+
+				<div class="card">
+
+					<h3>{{ trick.title }}</h3>
+					<p>{{ trick.content }}</p>
+					<img src="{{ asset('uploads/tricks/mini/300x300-') ~ trick.featureImage }}" alt="{{ trick.title }}">
+
+
+					<div class="categories">
+						{% for category in trick.categorie  %}
+							<p>{{ category.name  }}</p>
+						{% endfor %}
+					</div>
+					<p>{{ trick.user.username }}</p>
+				</div>
+
+
+			{% endfor %}
+		</section>
+
+		<section>
+			<h3>Les meilleurs 2 meileurs auteurs
+			</h3>
+
+			<div>
+				{% for author in bestAuthors %}
+
+					<p>{{author[0].username}}
+						<span>
+							<strong>:
+								{{author.total}}</strong>
+						</span>
+					</p>
+
+				{% endfor %}
+
+			</div>
+
+		</section>
+
+	</div>
 {% endblock %}

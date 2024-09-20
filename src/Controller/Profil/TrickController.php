@@ -2,8 +2,10 @@
 
 namespace App\Controller\Profil;
 
+
 use App\Entity\Trick;
 use App\Form\AddTrickFormType;
+use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,11 +19,20 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class TrickController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(TrickRepository $trickRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
-        return $this->render('profil/trick/index.html.twig', [
-            'controller_name' => 'TrickController',
-        ]);
+
+
+        $lastTricks = $trickRepository->findOneBy([], ['id' => 'DESC']);
+        $tricks  = $trickRepository->findBy([], ['id'=> 'DESC'], 8);
+
+        //on récupère les utilisateurs qui ont plus de posts par ordre 
+        $bestAuthors = $userRepository->getUserByTricks(2);
+        //dd($bestAuthors);
+
+        return $this->render('profil/trick/index.html.twig', 
+            compact('tricks', 'lastTricks','bestAuthors')
+        );
     }
 
 

@@ -36,17 +36,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+
+    //CREATION D UN DSQL
+    //cette fonction requete sera utilisé dans le controller
+        public function getUserByTricks($limit): array
+       {
+            return $this->createQueryBuilder('u') //on selectionne tous les colonnes de users
+
+                ->addSelect('COUNT(t) as total') //on récupère le nombre tricks par user 
+                ->leftJoin('u.tricks', 't') //on joint avec la table trick
+                ->groupBy('u.id') //grouper par id
+                ->orderBy('total', 'desc')// qui contint le plus de tricks
+                ->setMaxResults($limit) 
+                ->getQuery()
+                ->getResult()
+            ;
+        }
 
     //    public function findOneBySomeField($value): ?User
     //    {
