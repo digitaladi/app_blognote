@@ -8,6 +8,7 @@ use App\Form\AddTrickFormType;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use App\Service\PictureService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class TrickController extends AbstractController
 
         //on récupère les utilisateurs qui ont plus de posts par ordre 
         $bestAuthors = $userRepository->getUserByTricks(2);
-        //dd($bestAuthors);
+        //dd($tricks);
 
         return $this->render('profil/trick/index.html.twig', 
             compact('tricks', 'lastTricks','bestAuthors')
@@ -72,6 +73,8 @@ class TrickController extends AbstractController
                 //dd($slug);
                 //on assgine uen valeur au slug de  l'astuce
                 $trick->setSlug($slug);
+                $trick->setCreatedAt(new \DateTimeImmutable());
+                $trick->setUpdatedAt(new \DateTimeImmutable());
                 $em->persist($trick);
                 $em->flush();
 
@@ -86,7 +89,9 @@ class TrickController extends AbstractController
     }
 
 
+public function removeTrick($trick){
 
+}
 
 
 }

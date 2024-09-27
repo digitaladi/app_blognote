@@ -12,41 +12,27 @@
  * The "importmap:require" command can be used to add new entries to this file.
  */
 return [
-     //point d'entrée
     'app' => [
-        #la clé app pour charger app.js'
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
 
-    //point d'entrée du fichier register.js
+    
     'register' => [
-        #la clé register pour charger register.js'
         'path' => './assets/js/register.js',
         'entrypoint' => true,
     ],
-
-        //point d'entrée du fichier register.js
     'add-trick' => [
-        #la clé register pour charger register.js'
         'path' => './assets/js/addTrick.js',
         'entrypoint' => true,
     ],
-
-
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
-
-    
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
-
-
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
-
-    
 ];

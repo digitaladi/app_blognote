@@ -10,6 +10,7 @@ function checkFile(){
     let reader = new FileReader();
    // alert(file);
 
+   //evenement après lecture totale du fichier
     reader.onloadend = function(){
         image.src = reader.result;
         preview.style.display = "block";

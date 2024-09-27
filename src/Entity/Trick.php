@@ -19,6 +19,9 @@ class Trick
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+
+
+
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -56,6 +59,12 @@ class Trick
     #[ORM\OneToMany(targetEntity: Rating::class, mappedBy: 'trick', orphanRemoval: true)]
     private Collection $ratings;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
@@ -63,7 +72,7 @@ class Trick
         $this->comments = new ArrayCollection();
         $this->ratings = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -104,7 +113,7 @@ class Trick
 
         return $this;
     }
-
+  
     public function getFeatureimage(): ?string
     {
         return $this->featureimage;
@@ -233,6 +242,30 @@ class Trick
                 $rating->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

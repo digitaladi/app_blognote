@@ -9,6 +9,9 @@ import './bootstrap.js';
 //on importe le css app.css
 import './styles/app.css';
 
+//on importe le css bootstrap.min.css
+import './styles/bootstrap.min.css';
+
 //on importe le css scripts.js
 import './js/scripts.js';
 
