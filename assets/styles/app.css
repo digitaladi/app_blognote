@@ -56,3 +56,17 @@ body {
 .dropdown-toggle::after{
     display: none !important;
 }
+
+
+.trick_wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 90%;
+    margin: 0 auto;
+    padding: 3%;
+}
+
+.trick_wrapper .card{
+width: 400px;
+margin: 20px;
+}

@@ -5,54 +5,63 @@
 
 {% block body %}
 
-
-	<div class="body-wrapper">
-
-		<h1>Mes astuces ✅</h1>
+	<section class="trick_wrapper">
+		{% for trick in tricks %}
 
 
-		<section id="wrap_tricks">
-
-			{% for trick in tricks %}
-
-				<div class="card">
-
-					<h3>{{ trick.title }}</h3>
-					<p>{{ trick.content }}</p>
-					<img src="{{ asset('uploads/tricks/mini/300x300-') ~ trick.featureImage }}" alt="{{ trick.title }}">
+			<div class="card mb-3">
+				<h3 class="card-header">
+					{{ trick.title }}</h3>
 
 
-					<div class="categories">
-						{% for category in trick.categorie  %}
-							<p>{{ category.name  }}</p>
-						{% endfor %}
-					</div>
-					<p>{{ trick.user.username }}</p>
+				<img src="{{ asset('uploads/tricks/mini/200x200-') ~ trick.featureImage }}" alt="{{ trick.title }}">
+
+				<div class="card-body">
+					<p class="card-text">{{ trick.content }}</p>
 				</div>
+				<ul class="list-group list-group-flush">
+
+
+					<li class="list-group-item">Auteur :
+						{{ trick.user.username }}</li>
+
+
+				</ul>
+				<div class="card-body">
+					{% for category in trick.categorie  %}
+						<a href="#" class="card-link">{{ category.name  }}</a>
+
+					{% endfor %}
+				</div>
+				<div class="card-footer text-muted">
+					2 days ago
+				</div>
+			</div>
+
+		{% endfor %}
+	</section>
+
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Les meilleurs 2 meileurs auteurs</h4>
+			{% for author in bestAuthors %}
+				<ul>
+					<li>
+						<a href="#" class="card-link">{{author[0].username}}</a>
+						<span>
+							<strong>
+								:
+								{{author.total}}</strong>
+						</span>
+					</li>
+				</ul>
 
 
 			{% endfor %}
-		</section>
 
-		<section>
-			<h3>Les meilleurs 2 meileurs auteurs
-			</h3>
 
-			<div>
-				{% for author in bestAuthors %}
-
-					<p>{{author[0].username}}
-						<span>
-							<strong>:
-								{{author.total}}</strong>
-						</span>
-					</p>
-
-				{% endfor %}
-
-			</div>
-
-		</section>
-
+		</div>
 	</div>
+
+
 {% endblock %}

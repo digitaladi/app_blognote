@@ -65,7 +65,7 @@ class TrickController extends AbstractController
               //  dd($featuredImage);
                $featuredImage = $trickForm->get('featureimage')->getData();
               
-               $image = $pictureService->square($featuredImage, '/tricks', 300);
+               $image = $pictureService->square($featuredImage, '/tricks', 200);
                 $trick->setFeatureimage($image)   ;
 
 
@@ -87,6 +87,15 @@ class TrickController extends AbstractController
             'trickForm' => $trickForm,
         ]);
     }
+
+
+    #[Route('/trickday', name: 'trickday')]
+    public function TrickOfTheDay(): Response{
+
+
+    return $this->render('profil/trick/trickday.html.twig');
+}
+
 
 
 public function removeTrick($trick){
