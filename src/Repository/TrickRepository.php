@@ -40,4 +40,23 @@ class TrickRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+    
+
+        public function trickByCategory(): array
+       {
+       return $this->createQueryBuilder('t')
+                    //    ->addSelect("c")
+                       //      ->select('c')    
+                   //   ->from('Categorie', 'c')
+                 //   ->join("c.name", "trick")
+                  //  ->groupBy('t.categorie')
+                    ->getQuery()
+                    ->getResult()
+           ;
+       }
+
+
+
 }

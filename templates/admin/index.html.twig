@@ -1,0 +1,24 @@
+{# cette page étend le twig base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}blognote
+{% endblock %}
+
+{% block body %}
+
+	<h1>Administration</h1>
+	<ul>
+		<li>
+			<a class="dropdown-item" href="{{ path('home_admin_trick') }}">Gestion des astuces</a>
+		</li>
+		<li>Gestion des utilisateurs</li>
+		<li>Gestion des catégories</li>
+		<li>Gestion des mots clés</li>
+		<li>Gestion de la notation</li>
+
+	</ul>
+
+	{#	{% endif %} #}
+
+
+{% endblock %}
