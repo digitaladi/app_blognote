@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ajout d'astuce
+{% endblock %}
+
+
+{% block importmap %}
+	{{ importmap(['app', 'add-trick']) }}
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container">
+		<h1 class="mt-2">Création d'un astuce</h1>
+
+		{{ form_start(trickFormAdmin) }}
+
+
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin) }}
+
+		</div>
+
+
+		<div class="form-group">
+			{{ form_label(trickFormAdmin.title) }}
+			{{ form_widget(trickFormAdmin.title) }}
+			{{ form_errors(trickFormAdmin.title) }}
+		</div>
+
+
+		<div class="form-group">
+			{{ form_label(trickFormAdmin.content) }}
+			{{ form_widget(trickFormAdmin.content) }}
+			{{ form_errors(trickFormAdmin.content) }}
+		</div>
+
+
+		<div class="form-group">
+			{{ form_row(trickFormAdmin.featureimage) }}
+			<div class="preview">
+				<img src="" alt="" width="300"/>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			{{ form_label(trickFormAdmin.categorie) }}
+			{{ form_widget(trickFormAdmin.categorie, { 'choice-attr': {'class': 'm-2'} }) }}
+			{{ form_errors(trickFormAdmin.categorie) }}
+
+		</div>
+
+
+		<div class="form-group">
+			{{ form_label(trickFormAdmin.keyword) }}
+			{{ form_widget(trickFormAdmin.keyword) }}
+			{{ form_errors(trickFormAdmin.keyword) }}
+		</div>
+
+		{{ form_end(trickFormAdmin) }}
+	</div>
+
+
+{% endblock %}

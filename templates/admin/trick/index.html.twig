@@ -6,34 +6,45 @@
 
 {% block body %}
 
-	<h1>Astuce</h1>
+
 	{#{% if is_actif == true %} #}
-	<table class="table table-hover">
-		<thead>
-			<tr class="table-secondary">
-				<th scope="col">Id</th>
-				<th scope="col">Titre</th>
-				<th scope="col">Contenu de l'astuce</th>
-				<th scope="col">Date de création</th>
-			</tr>
-		</thead>
+
+	<div class="container">
+		<button class='btn btn-primary m-2'>
+			<a class="dropdown-item" href="{{ path('admin_trick_add') }}">Ajouter un astuce</a>
+		</button>
+
+		{% if tricks is not empty  %}
+			<table class="table table-hover">
+				<thead>
+					<tr class="table-secondary">
+						<th scope="col">Id</th>
+						<th scope="col">Titre</th>
+						<th scope="col">Contenu de l'astuce</th>
+						<th scope="col">Date de création</th>
+					</tr>
+				</thead>
 
 
-		<tbody>
+				<tbody>
 
-			{% for trick in tricks %}
-				<tr class="table-light">
-					<th scope="row">{{ trick.id }}
-					</th>
-					<td>{{ trick.title }}</td>
-					<td>{{ trick.content }}</td>
-					<td>{{ trick.createdAt|date("d/m/Y") }}</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	{#	{% endif %} #}
+					{% for trick in tricks %}
+						<tr class="table-light">
+							<th scope="row">{{ trick.id }}
+							</th>
+							<td>{{ trick.title }}</td>
+							<td>{{ trick.content }}</td>
+							<td>{{ trick.createdAt|date("d/m/Y") }}</td>
+						</tr>
+					{% endfor %}
 
 
+				</tbody>
+			</table>
+		{% else %}
+			<h2>Il y'a plus d'astuces</h2>
+		{% endif %}
+		{#	{% endif %} #}
+
+	</div>
 {% endblock %}

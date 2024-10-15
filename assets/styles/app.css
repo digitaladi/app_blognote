@@ -70,3 +70,9 @@ body {
 width: 400px;
 margin: 20px;
 }
+
+
+.form-select-add-trick{
+    padding: 100px;
+    background-color: red;
+}
