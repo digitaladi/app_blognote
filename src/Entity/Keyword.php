@@ -24,13 +24,15 @@ class Keyword
     /**
      * @var Collection<int, Trick>
      */
-    #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'keyword')]
+    #[ORM\OneToMany(targetEntity: Trick::class, mappedBy: 'keyword', orphanRemoval: true)]
     private Collection $tricks;
 
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -73,7 +75,7 @@ class Keyword
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
-            $trick->addKeyword($this);
+            $trick->setKeyword($this);
         }
 
         return $this;
@@ -82,9 +84,16 @@ class Keyword
     public function removeTrick(Trick $trick): static
     {
         if ($this->tricks->removeElement($trick)) {
-            $trick->removeKeyword($this);
+            // set the owning side to null (unless already changed)
+            if ($trick->getKeyword() === $this) {
+                $trick->setKeyword(null);
+            }
         }
 
         return $this;
     }
+
+
+
+
 }

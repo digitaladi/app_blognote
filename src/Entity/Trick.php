@@ -35,17 +35,8 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    /**
-     * @var Collection<int, Categorie>
-     */
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'tricks')]
-    private Collection $categorie;
 
-    /**
-     * @var Collection<int, Keyword>
-     */
-    #[ORM\ManyToMany(targetEntity: Keyword::class, inversedBy: 'tricks')]
-    private Collection $keyword;
+
 
     /**
      * @var Collection<int, Comment>
@@ -65,10 +56,17 @@ class Trick
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Keyword $keyword = null;
+
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
-        $this->keyword = new ArrayCollection();
+
         $this->comments = new ArrayCollection();
         $this->ratings = new ArrayCollection();
     }
@@ -138,53 +136,11 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategorie(): Collection
-    {
-        return $this->categorie;
-    }
 
-    public function addCategorie(Categorie $categorie): static
-    {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie->add($categorie);
-        }
 
-        return $this;
-    }
 
-    public function removeCategorie(Categorie $categorie): static
-    {
-        $this->categorie->removeElement($categorie);
 
-        return $this;
-    }
 
-    /**
-     * @return Collection<int, Keyword>
-     */
-    public function getKeyword(): Collection
-    {
-        return $this->keyword;
-    }
-
-    public function addKeyword(Keyword $keyword): static
-    {
-        if (!$this->keyword->contains($keyword)) {
-            $this->keyword->add($keyword);
-        }
-
-        return $this;
-    }
-
-    public function removeKeyword(Keyword $keyword): static
-    {
-        $this->keyword->removeElement($keyword);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Comment>
@@ -266,6 +222,30 @@ class Trick
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getKeyword(): ?Keyword
+    {
+        return $this->keyword;
+    }
+
+    public function setKeyword(?Keyword $keyword): static
+    {
+        $this->keyword = $keyword;
 
         return $this;
     }

@@ -28,7 +28,7 @@ class TrickAdminController  extends AbstractController{
     public function getTricks( TrickRepository $trickRepository ) : Response{
 
        $tricks =  $trickRepository->findAll();
-        //dd($tricks);
+      //  dd($tricks);
         return $this->render('admin/trick/index.html.twig', [
             'tricks' => $tricks,
             //'is_actif' => true
@@ -91,6 +91,68 @@ class TrickAdminController  extends AbstractController{
               
         }
 
+
+        
+   
+    #[Route('/admin/tricks/edit/{id}', name:"admin_trick_edit", methods: ['GET', 'POST'])]
+    public function EditTrickAdmin(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
+            //paramconverter permet de de dire que $trick en parametre correspond l'id du route
+
+         //   $trick = $trickRepository->findOneBy(["id" => $id]);
+           // dd($trick->getUser()->getId());
+            $trickFormAdmin = $this->createForm(AddTrickAdminType::class, $trick);
+
+                 //on traite le formualaire
+             $trickFormAdmin->handleRequest($request);
+
+            if($trickFormAdmin->isSubmitted() && $trickFormAdmin->isValid()){
+               // dd($trickFormAdmin->getData());
+                //on crée le slug à parti du nom de l'astuce
+                $slug = strtolower($slugger->slug($trick->getTitle()) );
+              //     dd($this->getUser());
+                $trick->setUser($trick->getUser());
+              //  dd($featuredImage);
+               $featuredImage = $trickFormAdmin->get('featureimage')->getData();
+              
+               $image = $pictureService->square($featuredImage, '/tricks', 200);
+                $trick->setFeatureimage($image)   ;
+
+
+
+                //dd($slug);
+                //on assgine uen valeur au slug de  l'astuce
+                $trick->setSlug($slug);
+                $trick->setCreatedAt(new \DateTimeImmutable());
+                $trick->setUpdatedAt(new \DateTimeImmutable());
+                $em->persist($trick);
+                $em->flush();
+
+                $this->addFlash('success', 'L\'astuce a été modifiée');
+                return $this->redirectToRoute('home_admin_trick');
+            }
+            return $this->render('admin/trick/edit.html.twig', [
+                    'trickFormAdmin' => $trickFormAdmin,
+                ]);
+        }
+
+   
+
+
+         #[Route('/admin/tricks/delete/{id}', name:"admin_trick_delete")]
+        public function deleteTrickAdmin(Trick $trick, EntityManagerInterface $em):Response{
+
+
+            if($trick){
+                $em->remove($trick);
+                $em->flush();
+                $this->addFlash('success', 'L\'astuce a été supprimé');
+                return $this->redirectToRoute('home_admin_trick');
+            }else{
+                $this->addFlash('warning', 'L\'astuce n a pas été trouvé');
+            }
+
+
     }
 
-    
+
+}

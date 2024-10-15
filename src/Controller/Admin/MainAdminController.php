@@ -20,7 +20,7 @@ class MainAdminController  extends AbstractController{
  * @param TrickRepository $trickRepository
  * @return Response
  */
-#[Route('/admin', name:"home_admin")]
+#[Route('/admin/index', name:"home_admin")]
     public function getTricks( TrickRepository $trickRepository ) : Response{
 
       // $tricks =  $trickRepository->findAll();

@@ -83,40 +83,46 @@ class AddTrickAdminType extends AbstractType
                 'choice_label' => 'id',
             ])
 
-*/
+  */
+
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'name',
-                'choice_attr' => function () { return array('class' => 'ms-2'); },//styliser une option
-                'multiple' => true, //on peut choisir plusieurs
+                'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
+               // 'multiple' => true, //on peut choisir plusieurs
                  'expanded' => true, // case à cocher
                  'label' => 'La catégorie de l\'astuce',
                  'label_attr' =>[
-                     'class' => 'form-label mt-4'
+                     'class' => 'form-check-label mt-4'
                  ],
-   
+                 /*
                  'attr' => [
-                    'class' => ''
+                    'class' => 'form-check'
                 ]
+                    */
             ])
+
+          
             ->add('keyword', EntityType::class, [
                 'label' => 'Mot clé de l\'astuce',
                 'label_attr' =>[
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-check-label mt-4'
                 ],
-                'choice_attr' => function () { return array('class' => 'ms-2'); },//styliser une option
-  
-                'attr' => [
-                   'class' => ''
-                ],
-                'class' => Keyword::class,
+                'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
+                                 /*
+                 'attr' => [
+                    'class' => 'form-check'
+                ]
+                    */
+
+                'class' => Keyword::class,  
                 'choice_label' => 'name',
-                'multiple' => true,
+                //'multiple' => true,
                 'expanded' => true, // case à cocher
             ])
 
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer',
+                'label' => 'Créer une astuce',
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ]

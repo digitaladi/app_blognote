@@ -6,6 +6,7 @@
 {# il va aller chercher dans le fichier importmap.php et va trouver le entrypoint app puis va charger le fichier js correspondant  #}
 {% block importmap %}
 	{{ importmap(['app', 'register']) }}
+	{{ importmap(['app']) }}
 {% endblock %}
 
 

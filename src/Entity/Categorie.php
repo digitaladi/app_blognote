@@ -38,13 +38,15 @@ class Categorie
     /**
      * @var Collection<int, Trick>
      */
-    #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'categorie')]
+    #[ORM\OneToMany(targetEntity: Trick::class, mappedBy: 'categorie', orphanRemoval: true)]
     private Collection $tricks;
+
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->tricks = new ArrayCollection();
+     
     }
 
     public function getId(): ?int
@@ -130,7 +132,7 @@ class Categorie
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
-            $trick->addCategorie($this);
+            $trick->setCategorie($this);
         }
 
         return $this;
@@ -139,9 +141,17 @@ class Categorie
     public function removeTrick(Trick $trick): static
     {
         if ($this->tricks->removeElement($trick)) {
-            $trick->removeCategorie($this);
+            // set the owning side to null (unless already changed)
+            if ($trick->getCategorie() === $this) {
+                $trick->setCategorie(null);
+            }
         }
 
         return $this;
     }
+
+
+
+
+
 }
