@@ -92,7 +92,7 @@ class TrickAdminController  extends AbstractController{
         }
 
 
-        
+
    
     #[Route('/admin/tricks/edit/{id}', name:"admin_trick_edit", methods: ['GET', 'POST'])]
     public function EditTrickAdmin(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
@@ -152,6 +152,21 @@ class TrickAdminController  extends AbstractController{
             }
 
 
+    }
+
+
+
+    #[Route('/admin/tricks/show/{id}', name:"admin_trick_show")]
+    public function showTrickAdmin(Trick $trick): Response{
+        
+       // dd($trick);
+
+       if(!$trick){
+        throw $this->createNotFoundException("Cette astuce n'existe pas ");
+       }
+        return $this->render('admin/trick/show.html.twig', [
+            'trick' => $trick,
+        ]);
     }
 
 

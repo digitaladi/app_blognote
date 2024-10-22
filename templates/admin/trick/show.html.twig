@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ trick.title }}
+{% endblock %}
+
+
+{% block importmap %}
+	{{ importmap(['app', 'add-trick']) }}
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container">
+		<h2 class="mt-2">{{ trick.title }}</h2>
+		<div class="wrap_show_admin">
+			<div class="wrap_admin_show_img">
+				<img src="{{ asset('uploads/tricks/') ~ trick.featureImage }}" alt="{{ trick.title }}">
+			</div>
+			<div>
+				<ul>
+					<li>
+						l'auteur :
+						{{ trick.user.username }}</li>
+					<li>La catégorie :
+						{{ trick.categorie.name  }}</li>
+					<li>Date de création :
+						{{ trick.createdAt|date("d/m/Y") }}</li>
+
+				</ul>
+
+			</div>
+		</div>
+
+		<div>{{ trick.content }}</div>
+
+	</div>
+
+
+{% endblock %}

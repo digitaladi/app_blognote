@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,14 +22,37 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
+                'label' => 'Le pseudo',
                 'attr' => [
-                    'placeholder' => 'Minimum 3 caractères'
-                ]
+                    'placeholder' => 'Le pseudo',
+                         'class' => 'form-control'
+
+                ],
+                'label_attr' =>[
+                    'class' => 'form-label mt-4'
+                ],
             ])
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'label' => 'L\'email',
+                'attr' =>[
+                         'placeholder' => 'L\'email',
+                         'class' => 'form-control'
+                ],
+                'label_attr' =>[
+                    'class' => 'form-label mt-4'
+                ],
+            ])
 
             
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les conditions',
+                'label_attr' =>[
+                    'class' => 'form-check-label mt-4'
+                ],
+                'attr' => [
+                   'class' => 'form-check-input ms-1 mt-4' 
+                ],
+      
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -38,10 +63,19 @@ class RegistrationFormType extends AbstractType
 
 
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                      'placeholder' => 'mot de passe',
+                         'class' => 'form-control'
+                ],
+
+                'label_attr' =>[
+                    'class' => 'form-label mt-4'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renter votre mot de passe',
@@ -52,6 +86,10 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+
+
+
+
                     //un mot de passe très fort
 
                     /*
@@ -64,6 +102,15 @@ class RegistrationFormType extends AbstractType
                     )
                         */
                 ],
+            ])
+
+
+            ->add('submit', SubmitType::class, [
+                'label' => ' S\'inscrire',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-4',
+                    'id' => 'submit-button'
+                ]
             ])
         ;
     }
