@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
+#[Route('/admin/users', name:"app_admin_user_")]
 class UserAdminController extends AbstractController {
 
 
@@ -21,7 +23,7 @@ class UserAdminController extends AbstractController {
  * @param UserRepository $userRepository
  * @return Response
  */
-#[Route('/admin/users', name:"home_admin_user")]
+#[Route('/', name:"index")]
 public function getUsers(UserRepository $userRepository): Response{
 
 $users = $userRepository->findAll();
@@ -43,7 +45,7 @@ return $this->render('admin/user/index.html.twig', [
 
 
 
-#[Route('/admin/users/edit/{id}', name:"admin_user_edit", methods: ['GET', 'POST'])]
+#[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
 
 public function edit(User $user, EntityManagerInterface $em, Request $request): Response{
 
@@ -71,7 +73,7 @@ public function edit(User $user, EntityManagerInterface $em, Request $request): 
 
 
 
-#[Route('/admin/users/delete/{id}', name:"admin_user_delete")]
+#[Route('/delete/{id}', name:"delete")]
 public function delete(User $user, EntityManagerInterface $em):Response{
 
 
@@ -90,7 +92,7 @@ public function delete(User $user, EntityManagerInterface $em):Response{
 
 
 
-#[Route('/admin/users/show/{id}', name:"admin_user_show")]
+#[Route('/show/{id}', name:"show")]
 public function show(User $user, EntityManagerInterface $em){
     //dd($user);
     if(!$user){

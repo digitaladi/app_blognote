@@ -42,6 +42,12 @@ class Categorie
     private Collection $tricks;
 
 
+
+    public function __toString() 
+{
+        return (string) $this->name; 
+}
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();

@@ -5,18 +5,15 @@
 {% block body %}
 
 
-	<div class="example-wrapper">
-		<h1>Ajouter une catégorie</h1>
-		<div>
-			{{ form_start(formCategorie) }}
-			{{ form_row(formCategorie.name) }}
-			{{ form_row(formCategorie.parent) }}
+	<div class="container">
+		<h1 class="mt-2">Ajouter une catégorie</h1>
 
 
-			<button type="submit">Ajouter
-			</button>
-			{{ form_end(formCategorie) }}
-		</div>
+		{{ form_start(formCategorie) }}
+		{{ form_row(formCategorie.name) }}
+		{{ form_row(formCategorie.parent) }}
+
+		{{ form_end(formCategorie) }}
 
 
 	</div>

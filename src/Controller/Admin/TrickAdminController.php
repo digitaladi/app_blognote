@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+
+#[Route('/admin/tricks', name:"app_admin_trick_")]
 class TrickAdminController  extends AbstractController{
     
 
@@ -24,7 +26,7 @@ class TrickAdminController  extends AbstractController{
  * @param TrickRepository $trickRepository
  * @return Response
  */
-#[Route('/admin/tricks', name:"home_admin_trick")]
+#[Route('/', name:"index")]
     public function getTricks( TrickRepository $trickRepository ) : Response{
 
        $tricks =  $trickRepository->findAll();
@@ -45,7 +47,7 @@ class TrickAdminController  extends AbstractController{
      * @param EntityManagerInterface $em
      * @return void
      */
-    #[Route('/admin/tricks/add', name:"admin_trick_add")]
+    #[Route('/add', name:"add")]
     public function addTrickAdmin(Request $request, SluggerInterface $slugger, PictureService $pictureService, EntityManagerInterface $em){
         
         $trick = new Trick();
@@ -94,7 +96,7 @@ class TrickAdminController  extends AbstractController{
 
 
    
-    #[Route('/admin/tricks/edit/{id}', name:"admin_trick_edit", methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
     public function EditTrickAdmin(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
             //paramconverter permet de de dire que $trick en parametre correspond l'id du route
 
@@ -138,7 +140,7 @@ class TrickAdminController  extends AbstractController{
    
 
 
-         #[Route('/admin/tricks/delete/{id}', name:"admin_trick_delete")]
+         #[Route('/delete/{id}', name:"delete")]
         public function deleteTrickAdmin(Trick $trick, EntityManagerInterface $em):Response{
 
 
@@ -156,7 +158,7 @@ class TrickAdminController  extends AbstractController{
 
 
 
-    #[Route('/admin/tricks/show/{id}', name:"admin_trick_show")]
+    #[Route('/show/{id}', name:"show")]
     public function showTrickAdmin(Trick $trick): Response{
         
        // dd($trick);

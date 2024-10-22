@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier une catégorie
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container">
+		<h1 class="mt-2">Modifier une catégorie</h1>
+
+
+		{{ form_start(categorieFormAdmin) }}
+		{{ form_row(categorieFormAdmin.name) }}
+		{{ form_row(categorieFormAdmin.parent) }}
+
+		{{ form_end(categorieFormAdmin) }}
+
+
+	</div>
+{% endblock %}
