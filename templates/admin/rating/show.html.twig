@@ -1,0 +1,47 @@
+{# cette page étend le twig base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Afficher une notation
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-4">
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action active">
+				<h4>
+					Informations sur la notation</h4>
+			</a>
+
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				Note
+				<span class="badge bg-primary rounded-pill">{{ rating.note }}</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				L'astuce de la notation
+				<span class="badge bg-primary rounded-pill">{{ rating.trick.title }}</span>
+			</li>
+
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				L'auteur de la notation
+				<span class="badge bg-primary rounded-pill">{{ rating.user.username }}</span>
+			</li>
+
+
+		</div>
+
+		{#
+																						<ul class="list-group mt-2">
+																							<li class="list-group-item d-flex justify-content-between align-items-center">
+																								Nombres d'astuces
+																								<span class="badge bg-primary rounded-pill">{{ categorie.getTricks|length  }}</span>
+																							</li>
+																							<li class="list-group-item d-flex justify-content-between align-items-center">
+																								Nombre de categories
+																								<span class="badge bg-primary rounded-pill">{{ categorie.getCategories|length  }}</span>
+																							</li>
+																				
+																						</ul>
+																				        #}
+	</div>
+{% endblock %}
