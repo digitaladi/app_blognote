@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}add keyword
+{% block title %}Ajouter un mot clé
 {% endblock %}
 
 {% block body %}
 
 
-	<div class="example-wrapper">
-		<h1>Ajouter un mot clé</h1>
-		<div>
-			{{ form_start(keywordForm) }}
-			{{ form_row(keywordForm.name) }}
+	<div class="container">
+		<h1 class="mt-4">Ajouter un mot clé</h1>
 
-			<button type="submit">Ajouter</button>
-			{{ form_end(keywordForm) }}
-		</div>
+		{{ form_start(keywordForm) }}
+		{{ form_row(keywordForm.name) }}
+		{{ form_row(keywordForm.slug) }}
+
+
+		{{ form_end(keywordForm) }}
 
 
 	</div>

@@ -55,7 +55,7 @@ class AddCommentAdminType extends AbstractType
                 'placeholder' =>  '-- Choisir un utilisateur du commentaire --', //affichage null
                 'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
                 'label_attr' =>[
-                    'class' => 'form-check-label mt-4'
+                    'class' => 'form-check-label mt-4 mb-1'
                 ],              
                 'attr' => [
                    'class' => 'form-select'
@@ -66,7 +66,7 @@ class AddCommentAdminType extends AbstractType
                 'label' => "L'astuce du commentaire",
                 'placeholder' =>  '-- Choisir un astuce du commentaire --', //affichage null
                 'label_attr' =>[
-                    'class' => 'form-check-label mt-4'
+                    'class' => 'form-check-label mt-4 mb-1'
                 ],
                 'class' => Trick::class,
                 'choice_label' => 'title',

@@ -87,38 +87,39 @@ class AddTrickAdminType extends AbstractType
 
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
+                
                 'choice_label' => 'name',
                 'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
                // 'multiple' => true, //on peut choisir plusieurs
-                 'expanded' => true, // case à cocher
+                 //'expanded' => true, // case à cocher
                  'label' => 'La catégorie de l\'astuce',
                  'label_attr' =>[
-                     'class' => 'form-check-label mt-4'
+                     'class' => 'form-check-label mt-4 mb-1'
                  ],
-                 /*
+                 
                  'attr' => [
-                    'class' => 'form-check'
+                    'class' => 'form-select'
                 ]
-                    */
+                    
             ])
 
           
             ->add('keyword', EntityType::class, [
                 'label' => 'Mot clé de l\'astuce',
                 'label_attr' =>[
-                    'class' => 'form-check-label mt-4'
+                    'class' => 'form-check-label mt-4  mb-1'
                 ],
                 'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
-                                 /*
+                                 
                  'attr' => [
-                    'class' => 'form-check'
-                ]
-                    */
+                    'class' => 'form-select'
+                 ],
+                    
 
                 'class' => Keyword::class,  
                 'choice_label' => 'name',
                 //'multiple' => true,
-                'expanded' => true, // case à cocher
+                //'expanded' => true, // case à cocher
             ])
 
             ->add('submit', SubmitType::class, [

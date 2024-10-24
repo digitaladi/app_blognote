@@ -17,7 +17,7 @@
 		{% if keywords is not empty  %}
 			<table class="table table-hover">
 				<thead>
-					<tr class="table-secondary">
+					<tr class="table-warning">
 						<th scope="col">voir</th>
 						<th scope="col">Nom du mot clé</th>
 						<th scope="col">Slug du mot clé</th>
@@ -33,7 +33,7 @@
 						<tr class="table-dark">
 							<th scope="row">
 
-								<a href="{{ path('app_admin_comment_show',{id: keyword.id}) }}">{{ ux_icon('mingcute:eye-line', {height:'20px', width:'20px'}) }}</a>
+								<a href="{{ path('app_admin_keyword_show',{id: keyword.id}) }}">{{ ux_icon('mingcute:eye-line', {height:'20px', width:'20px'}) }}</a>
 
 							</th>
 
@@ -42,10 +42,10 @@
 							<td>
 
 
-								<a onclick="return confirm('Etes vous sûre de vouloir supprimer cette astuce')" href="{{ path('app_admin_comment_delete',{id: keyword.id}) }}">{{ ux_icon('mingcute:delete-line',{height:'20px', width:'20px'}) }}</a>
+								<a onclick="return confirm('Etes vous sûre de vouloir supprimer cette astuce')" href="{{ path('app_admin_keyword_delete',{id: keyword.id}) }}">{{ ux_icon('mingcute:delete-line',{height:'20px', width:'20px'}) }}</a>
 
 
-								<a href="{{ path('app_admin_comment_edit',{id: keyword.id}) }}">{{ ux_icon('mingcute:edit-line', {height:'20px', width:'20px'}) }}</a>
+								<a href="{{ path('app_admin_keyword_edit',{id: keyword.id}) }}">{{ ux_icon('mingcute:edit-line', {height:'20px', width:'20px'}) }}</a>
 
 							</td>
 						</tr>
