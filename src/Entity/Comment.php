@@ -66,7 +66,7 @@ class Comment
         return $this->isReply;
     }
 
-    public function setReply(bool $isReply): static
+    public function setIsReply(bool $isReply): static
     {
         $this->isReply = $isReply;
 

@@ -53,7 +53,7 @@ class RegistrationFormType extends AbstractType
                    'class' => 'form-check-input ms-1 mt-4' 
                 ],
       
-                'mapped' => false,
+                'mapped' => false, //ne doit pas etre pris en compte par le mappage de l'entité user
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',

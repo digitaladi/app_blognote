@@ -15,7 +15,7 @@ class AddKeywordFormType extends AbstractType
     {
         $builder
             ->add('name')
-         //   ->add('slug')
+            ->add('slug')
       /*      ->add('tricks', EntityType::class, [
                 'class' => Trick::class,
                 'choice_label' => 'id',

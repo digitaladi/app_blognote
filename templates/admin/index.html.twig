@@ -6,16 +6,55 @@
 
 {% block body %}
 
-	<h1>Administration</h1>
-	<ul>
-		<li><a class="dropdown-item"href="{{ path('app_admin_trick_index') }}">Gestion des astuces</a></li>
-		<li><a class="dropdown-item"href="{{ path('app_admin_user_index') }}">Gestion des utilisateurs</a></li>
-		<li><a class="dropdown-item"href="{{ path('app_admin_categorie_index') }}">Gestion des catégories</a></li>
-		<li><a class="dropdown-item"href="{{ path('app_admin_categorie_index') }}">Gestion des commentaires</a></li>
-		<li><a class="dropdown-item"href="{{ path('app_admin_categorie_index') }}">Gestion des mots clés</a></li>
-		<li><a class="dropdown-item"href="{{ path('app_admin_categorie_index') }}">Gestion de la notation</a></li>
 
-	</ul>
+	<div class="container mt-4">
+		<h1>Administration</h1>
+		<div class="row g-2">
+			<div class="col-6">
+				<div class="p-3 border bg-primary">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_trick_index') }}">Gestion des astuces</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="p-3 border bg-dark">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_user_index') }}">Gestion des utilisateurs</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="p-3 border bg-success">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_categorie_index') }}">Gestion des catégories</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="p-3 border bg-danger">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_comment_index') }}">Gestion des commentaires</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="p-3 border bg-warning">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_keywords_index') }}">Gestion des mots clés</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="p-3 border bg-info">
+					<h2 class="text-center">
+						<a class="dropdown-item" href="{{ path('app_admin_comment_index') }}">Gestion de la notation</a>
+					</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	{#	{% endif %} #}
 

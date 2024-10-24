@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Keyword;
 use App\Form\AddKeywordFormType;
+use App\Repository\KeywordRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -16,19 +17,20 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 //les fonctions de controller vont se baser sur la route mère
 //pour écrire la route vers index de la fonction index on fait : app_admin_keywords_index 
 
-#[Route('/admin/keywords', name: 'app_admin_keywords_')]
-class KeywordsController extends AbstractController
+#[Route('/admin/keywords', name: 'app_admin_keyword_')]
+class KeywordAdminController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response   
-    {
-        return $this->render('admin/keywords/index.html.twig', [
-            'controller_name' => 'KeywordsController',
+    public function index(KeywordRepository $keywordRepository): Response   
+    {   
+        $keywords = $keywordRepository->findAll();
+        return $this->render('admin/keyword/index.html.twig', [
+            'keywords' => $keywords,
         ]);
     }
 
 
-    #[Route('/addKeyword', name: 'add')]
+    #[Route('/add', name: 'add')]
     public function addKeywords(Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
         //on initialise un mot clé
@@ -56,11 +58,11 @@ class KeywordsController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('success', 'Le mot-clé a été ajouté');
-                return $this->redirectToRoute('app_admin_keywords_index');
+                return $this->redirectToRoute('app_admin_keyword_index');
             }
 
 
-        return $this->render('admin/keywords/add.html.twig', [
+        return $this->render('admin/keyword/add.html.twig', [
             'keywordForm' => $keywordForm,
         ]);
     }
