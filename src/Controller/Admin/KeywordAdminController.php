@@ -17,9 +17,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 //les fonctions de controller vont se baser sur la route mère
 //pour écrire la route vers index de la fonction index on fait : app_admin_keywords_index 
 
+
+
 #[Route('/admin/keywords', name: 'app_admin_keyword_')]
 class KeywordAdminController extends AbstractController
 {
+
+    /**
+     * Undocumented function
+     *
+     * @param KeywordRepository $keywordRepository
+     * @return Response
+     */
     #[Route('/', name: 'index')]
     public function index(KeywordRepository $keywordRepository): Response   
     {   
@@ -29,7 +38,14 @@ class KeywordAdminController extends AbstractController
         ]);
     }
 
-
+    /**
+     * function d'ajout de mot de clé en admin
+     *
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/add', name: 'add')]
     public function addKeywords(Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
@@ -69,8 +85,9 @@ class KeywordAdminController extends AbstractController
 
 
 
+
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
-    public function edit(EntityManagerInterface $em, Keyword $keyword, Request $request, SluggerInterface $slugger, ){
+    public function edit(EntityManagerInterface $em, Keyword $keyword, Request $request, SluggerInterface $slugger, ):Response{
         $keywordEditAdminForm = $this->createForm(AddKeywordFormType::class, $keyword);
         $keywordEditAdminForm->handleRequest($request);
         if($keywordEditAdminForm->isSubmitted() && $keywordEditAdminForm->isValid()){
