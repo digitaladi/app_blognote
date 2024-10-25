@@ -82,7 +82,7 @@ class TrickAdminController  extends AbstractController{
                 $em->flush();
 
                 $this->addFlash('success', 'L\'astuce a été ajouté');
-                return $this->redirectToRoute('home_admin_trick');
+                return $this->redirectToRoute('app_admin_trick_index');
             }
 
 
@@ -130,7 +130,7 @@ class TrickAdminController  extends AbstractController{
                 $em->flush();
 
                 $this->addFlash('success', 'L\'astuce a été modifiée');
-                return $this->redirectToRoute('home_admin_trick');
+                return $this->redirectToRoute('app_admin_trick_index');
             }
             return $this->render('admin/trick/edit.html.twig', [
                     'trickFormAdmin' => $trickFormAdmin,
@@ -148,7 +148,7 @@ class TrickAdminController  extends AbstractController{
                 $em->remove($trick);
                 $em->flush();
                 $this->addFlash('success', 'L\'astuce a été supprimé');
-                return $this->redirectToRoute('home_admin_trick');
+                return $this->redirectToRoute('app_admin_trick_index');
             }else{
                 $this->addFlash('warning', 'L\'astuce n a pas été trouvé');
             }

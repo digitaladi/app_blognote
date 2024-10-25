@@ -16,7 +16,7 @@ class Rating
 
     #[ORM\Column]
     #[Assert\Positive]
-    #[Assert\Range( min: 1, max: 5,
+    #[Assert\Range( min: 0, max: 5,
     notInRangeMessage: 'La note doit etre comprise entre  {{ min }}cm et  {{ max }} ')]
     private ?int $note = null;
 

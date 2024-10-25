@@ -8,11 +8,16 @@
 
 	<div class="container">
 		<h1 class="mt-4">Ajouter un mot clé</h1>
-
 		{{ form_start(keywordForm) }}
-		{{ form_row(keywordForm.name) }}
-		{{ form_row(keywordForm.slug) }}
 
+		<div class="form-group">
+			{{ form_label(keywordForm.name) }}
+			{{ form_widget(keywordForm.name) }}
+
+			<div class="form-error">
+				{{ form_errors(keywordForm.name) }}
+			</div>
+		</div>
 
 		{{ form_end(keywordForm) }}
 

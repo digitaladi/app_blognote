@@ -58,4 +58,7 @@
 	{% endfor %}
 
 
-</tbody></table>{% else %}<h2>Il y'a plus de catégories</h2>{% endif %}{#	{% endif %} #}</div>{% endblock %}
+</tbody></table>{% else %}<div class="alert alert-dismissible alert-danger">
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<strong>Oups!!</strong>
+Il y'a plus de catégories</div></h5>{% endif %}{#	{% endif %} #}</div>{% endblock %}
