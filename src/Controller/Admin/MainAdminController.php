@@ -8,8 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MainAdminController  extends AbstractController{
 
@@ -20,7 +19,10 @@ class MainAdminController  extends AbstractController{
  * @param TrickRepository $trickRepository
  * @return Response
  */
-#[Route('/admin/index', name:"home_admin")]
+
+ //Permet de tous les methodes de cet controller sont accesible si on a le role admin
+//#[IsGranted('ROLE_ADMIN')]
+#[Route('/admin/index', name:"app_admin")]
     public function getTricks( TrickRepository $trickRepository ) : Response{
 
       // $tricks =  $trickRepository->findAll();

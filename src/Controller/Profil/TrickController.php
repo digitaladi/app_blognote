@@ -14,15 +14,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/profil/trick', name: 'app_profil_trick_')]
+//Permet de tous les methodes de cet controller sont accesible si on a le role user
+//#[IsGranted('ROLE_USER')]
+#[Route('/profile/trick', name: 'app_profil_trick_')]
 class TrickController extends AbstractController
 {
+
+    //on éxcécute cette fonction que si on n'a le role user
+   // #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'index')]
     public function index(TrickRepository $trickRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
-
+        //on accéde ici que si on est role_user
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $lastTricks = $trickRepository->findOneBy([], ['id' => 'DESC']);
         $tricks  = $trickRepository->findBy([], ['id'=> 'DESC'], 8);
@@ -91,7 +98,7 @@ class TrickController extends AbstractController
 
     #[Route('/trickday', name: 'trickday')]
     public function TrickOfTheDay(): Response{
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
     return $this->render('profil/trick/trickday.html.twig');
 }

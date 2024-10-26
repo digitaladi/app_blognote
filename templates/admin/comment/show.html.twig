@@ -1,7 +1,7 @@
 {# cette page étend le twig base.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des commentaires
+{% block title %}Commentaire
 {% endblock %}
 
 {% block body %}
@@ -10,6 +10,9 @@
 		<div class="list-group">
 			<a href="#" class="list-group-item list-group-item-action active">
 				<h4>
+					Commentaire :
+					<hr>
+
 					{{ comment.content }}</h4>
 			</a>
 
@@ -31,17 +34,17 @@
 		</div>
 
 		{#
-										<ul class="list-group mt-2">
-											<li class="list-group-item d-flex justify-content-between align-items-center">
-												Nombres d'astuces
-												<span class="badge bg-primary rounded-pill">{{ categorie.getTricks|length  }}</span>
-											</li>
-											<li class="list-group-item d-flex justify-content-between align-items-center">
-												Nombre de categories
-												<span class="badge bg-primary rounded-pill">{{ categorie.getCategories|length  }}</span>
-											</li>
-								
-										</ul>
-								        #}
+																										<ul class="list-group mt-2">
+																											<li class="list-group-item d-flex justify-content-between align-items-center">
+																												Nombres d'astuces
+																												<span class="badge bg-primary rounded-pill">{{ categorie.getTricks|length  }}</span>
+																											</li>
+																											<li class="list-group-item d-flex justify-content-between align-items-center">
+																												Nombre de categories
+																												<span class="badge bg-primary rounded-pill">{{ categorie.getCategories|length  }}</span>
+																											</li>
+																								
+																										</ul>
+																								        #}
 	</div>
 {% endblock %}

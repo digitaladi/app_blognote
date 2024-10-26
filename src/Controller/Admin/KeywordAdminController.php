@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 //une route sur tout le controller (route mère)
@@ -18,7 +19,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 //pour écrire la route vers index de la fonction index on fait : app_admin_keywords_index 
 
 
-
+//Permet de tous les methodes de cet controller sont accesible si on a le role admin
+//#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/keywords', name: 'app_admin_keyword_')]
 class KeywordAdminController extends AbstractController
 {

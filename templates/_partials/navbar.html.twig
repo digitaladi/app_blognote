@@ -41,37 +41,45 @@
 
 
 						</a>
-							<div class="dropdown-menu"> <a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
-							<a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
-							<a class="dropdown-item" href="{{ path('home_admin') }}">Administration</a>
-							<a class="dropdown-item" href="{{ path('app_profil_trick_trickday') }}">Mon compte</a>
 
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+							<div class="dropdown-menu"> {% if not app.user %}
+								<a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
+								<a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
+
+							{% endif %}
+
+							{% if is_granted('ROLE_USER')  %}
+								<a class="dropdown-item" href="{{ path('app_profil_trick_trickday') }}">Mon compte</a>
+							{% endif %}
+
+							{% if is_granted('ROLE_ADMIN')  %}
+								<a class="dropdown-item" href="{{ path('app_admin') }}">Administration</a>
+							{% endif %}
+							{% if app.user %}
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+							{% endif %}
 						</div>
 					</li>
-				</ul>
-			</div>
-
+				</li>
+			</ul>
 		</div>
+
 	</div>
-</nav>
-
-
-<!-- 
-
-<nav
-	class="navbar">
-	 la fonction asset de twig a comme paramétre le chemin et  pointe vers le dossier public
-	<a href="{{ path("app_home") }}"><img width="50px" src="{{ asset("assets/images/blog.png") }}" alt=""></a>
-	<ul>
-		<li>Accueil</li>
-		<li>Notes</li>
-		<li>Catégories</li>
-		<li>Auteurs</li>
-		<li>Contact</li>
-		<li>Recherche</li>
-	</ul>
-
-</nav>
--->
+</div></nav><!-- 
+										
+										<nav
+											class="navbar">
+											 la fonction asset de twig a comme paramétre le chemin et  pointe vers le dossier public
+											<a href="{{ path("app_home") }}"><img width="50px" src="{{ asset("assets/images/blog.png") }}" alt=""></a>
+											<ul>
+												<li>Accueil</li>
+												<li>Notes</li>
+												<li>Catégories</li>
+												<li>Auteurs</li>
+												<li>Contact</li>
+												<li>Recherche</li>
+											</ul>
+										
+										</nav>
+										-->

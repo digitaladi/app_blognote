@@ -10,7 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+//Permet de tous les methodes de cet controller sont accesible si on a le role admin
+//#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/rating', name: 'app_admin_rating_')]
 Class RatingAdminController extends AbstractController{
 
