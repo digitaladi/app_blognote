@@ -10,6 +10,12 @@ class MainProfileController extends AbstractController{
 
 
     #[Route('/', name: 'index')]
+
+    /**
+     * page d'acueil
+     *
+     * @return Response
+     */
     public function index(): Response {
 
         $page_home_profil = "Je suis la page d'accueil du profil";

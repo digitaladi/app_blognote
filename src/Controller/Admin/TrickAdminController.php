@@ -23,7 +23,7 @@ class TrickAdminController  extends AbstractController{
     
 
 /**
- * Affiche les astuces coté admin
+ * Affiche les astuces (coté admin)
  *
  * @param TrickRepository $trickRepository
  * @return Response
@@ -41,7 +41,7 @@ class TrickAdminController  extends AbstractController{
 
 
     /**
-     * Ajoute un astuce coté admin
+     * Ajouter un astuce (coté admin)
      *
      * @param Request $request
      * @param SluggerInterface $slugger
@@ -99,6 +99,16 @@ class TrickAdminController  extends AbstractController{
 
    
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer une notation (coté admin)
+     *
+     * @param EntityManagerInterface $em
+     * @param Trick $trick
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param PictureService $pictureService
+     * @return Response
+     */
     public function EditTrickAdmin(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
             //paramconverter permet de de dire que $trick en parametre correspond l'id du route
 
@@ -140,9 +150,16 @@ class TrickAdminController  extends AbstractController{
         }
 
    
-
+        
 
          #[Route('/delete/{id}', name:"delete")]
+         /**
+          * Supprimer une notation (coté admin)
+          *
+          * @param Trick $trick
+          * @param EntityManagerInterface $em
+          * @return Response
+          */
         public function deleteTrickAdmin(Trick $trick, EntityManagerInterface $em):Response{
 
 
@@ -161,6 +178,12 @@ class TrickAdminController  extends AbstractController{
 
 
     #[Route('/show/{id}', name:"show")]
+    /**
+     * Afficher une notation (coté admin)
+     *
+     * @param Trick $trick
+     * @return Response
+     */
     public function showTrickAdmin(Trick $trick): Response{
         
        // dd($trick);

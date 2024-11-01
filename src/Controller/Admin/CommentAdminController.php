@@ -16,6 +16,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 //Permet de tous les methodes de cet controller sont accesible si on a le role admin
 //#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/comment', name: 'app_admin_comment_')]
+/**
+ *   page index de commmentaire  (coté admin)
+ */
 Class CommentAdminController extends AbstractController{
 
 
@@ -36,6 +39,13 @@ Class CommentAdminController extends AbstractController{
 
 
     #[Route('/add', name: 'add')]
+    /**
+     * Ajouter un commentaire (coté admin)
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return void
+     */
     public function add(Request $request,EntityManagerInterface $em){
         $comment = new Comment();
         //dd($comment);
@@ -61,6 +71,14 @@ Class CommentAdminController extends AbstractController{
 
 
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer un commentaire (coté admin)
+     *
+     * @param EntityManagerInterface $em
+     * @param Comment $comment
+     * @param Request $request
+     * @return void
+     */
     public function edit(EntityManagerInterface $em, Comment $comment, Request $request){
         $commentEditAdminForm = $this->createForm(AddCommentAdminType::class, $comment);
         $commentEditAdminForm->handleRequest($request);
@@ -83,7 +101,13 @@ Class CommentAdminController extends AbstractController{
 
 
     #[Route('/show/{id}', name:"show")]
-    public function showTrickAdmin(Comment $comment): Response{
+    /**
+     * Afficher un commentaire (coté admin)
+     *
+     * @param Comment $comment
+     * @return Response
+     */
+    public function show(Comment $comment): Response{
         
       // dd($categorie);
 
@@ -97,6 +121,13 @@ Class CommentAdminController extends AbstractController{
 
 
     #[Route('/delete/{id}', name:"delete")]
+    /**
+     * Supprimer un commentaire (coté admin)
+     *
+     * @param Comment $comment
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     public function deleteTrickAdmin(Comment $comment, EntityManagerInterface $em):Response{
 
 

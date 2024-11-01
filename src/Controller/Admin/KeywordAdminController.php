@@ -26,7 +26,7 @@ class KeywordAdminController extends AbstractController
 {
 
     /**
-     * Undocumented function
+     * Page d'accueil des mot clés (coté admin)
      *
      * @param KeywordRepository $keywordRepository
      * @return Response
@@ -41,7 +41,7 @@ class KeywordAdminController extends AbstractController
     }
 
     /**
-     * function d'ajout de mot de clé en admin
+     * function d'ajout de mot de clé (coté admin)
      *
      * @param Request $request
      * @param SluggerInterface $slugger
@@ -88,7 +88,22 @@ class KeywordAdminController extends AbstractController
 
 
 
+
+
+
+
+
+
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer  un mot clé (coté admin)
+     *
+     * @param EntityManagerInterface $em
+     * @param Keyword $keyword
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
     public function edit(EntityManagerInterface $em, Keyword $keyword, Request $request, SluggerInterface $slugger, ):Response{
         $keywordEditAdminForm = $this->createForm(AddKeywordFormType::class, $keyword);
         $keywordEditAdminForm->handleRequest($request);
@@ -115,6 +130,12 @@ class KeywordAdminController extends AbstractController
 
 
     #[Route('/show/{id}', name:"show")]
+    /**
+     * Afficher  un mot clé (coté admin)
+     *
+     * @param Keyword $keyword
+     * @return Response
+     */
     public function showTrickAdmin(Keyword $keyword): Response{
         
       // dd($categorie);
@@ -130,6 +151,13 @@ class KeywordAdminController extends AbstractController
 
 
     #[Route('/delete/{id}', name:"delete")]
+    /**
+     * Supprimer  un mot clé (coté admin)
+     *
+     * @param Keyword $keyword
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     public function deleteTrickAdmin(Keyword $keyword, EntityManagerInterface $em):Response{
 
 

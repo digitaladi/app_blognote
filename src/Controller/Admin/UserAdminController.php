@@ -20,7 +20,7 @@ class UserAdminController extends AbstractController {
 
 
 /**
- * fonction pour récuperer tous les users en admin
+ * fonction pour récuperer tous les users (coté admin)
  *
  * @param UserRepository $userRepository
  * @return Response
@@ -48,7 +48,14 @@ return $this->render('admin/user/index.html.twig', [
 
 
 #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
-
+/**
+ * Ajouter un utilisateur (coté admin)
+ *
+ * @param User $user
+ * @param EntityManagerInterface $em
+ * @param Request $request
+ * @return Response
+ */
 public function edit(User $user, EntityManagerInterface $em, Request $request): Response{
 
     $userFormAdmin = $this->createForm(EditUserAdminType::class, $user);
@@ -76,6 +83,13 @@ public function edit(User $user, EntityManagerInterface $em, Request $request): 
 
 
 #[Route('/delete/{id}', name:"delete")]
+/**
+ * Supprimer un utilisateur (coté admin)
+ *
+ * @param User $user
+ * @param EntityManagerInterface $em
+ * @return Response
+ */
 public function delete(User $user, EntityManagerInterface $em):Response{
 
 
@@ -94,7 +108,17 @@ public function delete(User $user, EntityManagerInterface $em):Response{
 
 
 
+
+
+
 #[Route('/show/{id}', name:"show")]
+/**
+ * Afficher un utilisateur (coté admin)
+ *
+ * @param User $user
+ * @param EntityManagerInterface $em
+ * @return void
+ */
 public function show(User $user, EntityManagerInterface $em){
     //dd($user);
     if(!$user){

@@ -15,6 +15,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 //Permet de tous les methodes de cet controller sont accesible si on a le role admin
 //#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/rating', name: 'app_admin_rating_')]
+/**
+ * Page d'accueil de la notation (coté admin)
+ */
 Class RatingAdminController extends AbstractController{
 
     #[Route('/', name: 'index')]
@@ -27,7 +30,19 @@ Class RatingAdminController extends AbstractController{
     }
 
 
+
+
+
+
+
     #[Route('/add', name: 'add')]
+    /**
+     * Ajouter une notation (coté admin)
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     public function add(Request $request, EntityManagerInterface $em): Response
     {
         //on initialise un mot clé
@@ -62,7 +77,20 @@ Class RatingAdminController extends AbstractController{
 
 
 
+
+
+
+
+
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer une notation (coté admin)
+     *
+     * @param EntityManagerInterface $em
+     * @param Rating $rating
+     * @param Request $request
+     * @return void
+     */
     public function edit(EntityManagerInterface $em, Rating $rating, Request $request){
         $ratingEditAdminForm = $this->createForm(AddRatingAdminType::class, $rating);
         $ratingEditAdminForm->handleRequest($request);
@@ -85,6 +113,12 @@ Class RatingAdminController extends AbstractController{
 
 
     #[Route('/show/{id}', name:"show")]
+    /**
+     * Afficher  une notation (coté admin)
+     *
+     * @param Rating $rating
+     * @return Response
+     */
     public function show(Rating $rating): Response{
         
       // dd($categorie);
@@ -100,6 +134,13 @@ Class RatingAdminController extends AbstractController{
 
 
     #[Route('/delete/{id}', name:"delete")]
+    /**
+     * Supprimer une notation (coté admin)
+     *
+     * @param Rating $rating
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     public function deleteTrickAdmin(Rating $rating, EntityManagerInterface $em):Response{
 
 

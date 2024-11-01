@@ -19,6 +19,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class CategorieAdminController extends AbstractController
 {
     #[Route('/', name: 'index')]
+
+    /**
+     * Page index  de catégorie (coté admin)
+     *
+     * @param CategorieRepository $categorieRepository
+     * @return Response
+     */
     public function index(CategorieRepository $categorieRepository): Response
     {
 
@@ -31,6 +38,15 @@ class CategorieAdminController extends AbstractController
 
 
     #[Route('/addCategorie', name: 'add')]
+
+    /**
+     * Ajouter une catégorie (coté admin)
+     *
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     public function addCategorie(Request $request, SluggerInterface $slugger, EntityManagerInterface $em ): Response
     {
 
@@ -69,7 +85,19 @@ class CategorieAdminController extends AbstractController
 
 
 
+
+
+
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer une catégorie (coté admin)
+     *
+     * @param EntityManagerInterface $em
+     * @param Categorie $categorie
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
     public function Edit(EntityManagerInterface $em, Categorie $categorie,Request $request, SluggerInterface $slugger) : Response{
     
 
@@ -106,8 +134,41 @@ class CategorieAdminController extends AbstractController
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #[Route('/show/{id}', name:"show")]
-        public function showTrickAdmin(Categorie $categorie): Response{
+
+        /**
+         * afficher  une catégorie (coté admin)
+         *
+         * @param Categorie $categorie
+         * @return Response
+         */
+        public function show(Categorie $categorie): Response{
             
           // dd($categorie);
     
@@ -120,7 +181,28 @@ class CategorieAdminController extends AbstractController
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #[Route('/delete/{id}', name:"delete")]
+        /**
+         * Supprimer  une catégorie (coté admin)
+         *
+         * @param Categorie $categorie
+         * @param EntityManagerInterface $em
+         * @return Response
+         */
         public function deleteTrickAdmin(Categorie $categorie, EntityManagerInterface $em):Response{
 
 
