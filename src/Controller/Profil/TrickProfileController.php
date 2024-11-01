@@ -20,7 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 //Permet de tous les methodes de cet controller sont accesible si on a le role user
 //#[IsGranted('ROLE_USER')]
 #[Route('/profile/trick', name: 'app_profil_trick_')]
-class TrickController extends AbstractController
+class TrickProfileController extends AbstractController
 {
 
     //on éxcécute cette fonction que si on n'a le role user
@@ -96,12 +96,7 @@ class TrickController extends AbstractController
     }
 
 
-    #[Route('/trickday', name: 'trickday')]
-    public function TrickOfTheDay(): Response{
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
-    return $this->render('profil/trick/trickday.html.twig');
-}
 
 
 

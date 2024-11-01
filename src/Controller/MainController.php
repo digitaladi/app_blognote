@@ -50,4 +50,22 @@ public function  mentions():Response
     return $this->render("main/mentions.html.twig");
 }
 
+
+
+#[Route('/apropos', name: 'app_apropos')]
+
+    public function apropos(): Response{
+        return $this->render("main/apropos.html.twig");
+}
+
+
+
+#[Route('/trickday', name: 'trickday')]
+public function TrickOfTheDay(): Response{
+    $this->denyAccessUnlessGranted('ROLE_USER');
+
+return $this->render('main/trickday.html.twig');
+}
+
+
 }

@@ -10,7 +10,7 @@
 				class="navbar-nav me-auto">
 				{#  #}
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_profil_trick_trickday') }}">A propos
+					<a class="nav-link active" href="{{ path('app_apropos') }}">A propos
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
@@ -20,16 +20,17 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_profil_trick_trickday') }}">Astuce du jour</a>
+					<a class="nav-link" href="{{ path('trickday') }}">Astuce du jour</a>
 				</li>
 
 
 			</ul>
 
-			<div class="account-left-wrapper">
+
+			<div class="account-right-wrapper bg-primary">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
 
 
 							{# comment utiliser ux symfony icon #}
@@ -37,19 +38,27 @@
 							{# user-circle: le nom de l'icone #}
 							{# user-circle: le nom de l'icone #}
 							{# {height:'30px', width:'30px'} :  la taille de l'icone #}
-						{{ ux_icon('tabler:user-circle', {height:'30px', width:'30px'}) }}
+							{#{{ ux_icon('tabler:user-circle', {height:'30px', width:'30px'}) }}#}
+								{% if app.user %}
+								{{ app.user.username }}
 
+								<img src="https://i.pravatar.cc/100" alt="avatar" class="img-fluid rounded-circle ms-1" width="35"> {{ ux_icon('dashicons:arrow-down', {height:'20px', width:'20px'}) }}
 
+							{% else %}
+								{{ ux_icon('tabler:user-circle', {height:'30px', width:'30px'}) }}
+								{{ ux_icon('dashicons:arrow-down', {height:'20px', width:'20px'}) }}
+							{% endif %}
 						</a>
 
-							<div class="dropdown-menu"> {% if not app.user %}
+						<div class="dropdown-menu">
+							{% if not app.user %}
 								<a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
 								<a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
 
 							{% endif %}
 
 							{% if is_granted('ROLE_USER')  %}
-								<a class="dropdown-item" href="{{ path('app_profil_trick_trickday') }}">Mon compte</a>
+								<a class="dropdown-item" href="{{ path('app_profil_user_index') }}">Mon compte</a>
 							{% endif %}
 
 							{% if is_granted('ROLE_ADMIN')  %}
@@ -66,20 +75,4 @@
 		</div>
 
 	</div>
-</div></nav><!-- 
-										
-										<nav
-											class="navbar">
-											 la fonction asset de twig a comme paramétre le chemin et  pointe vers le dossier public
-											<a href="{{ path("app_home") }}"><img width="50px" src="{{ asset("assets/images/blog.png") }}" alt=""></a>
-											<ul>
-												<li>Accueil</li>
-												<li>Notes</li>
-												<li>Catégories</li>
-												<li>Auteurs</li>
-												<li>Contact</li>
-												<li>Recherche</li>
-											</ul>
-										
-										</nav>
-										-->
+</div></nav>

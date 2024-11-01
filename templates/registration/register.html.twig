@@ -12,46 +12,48 @@
 
 {% block body %}
 
-	<div class="container">
-		<h1 class="mt-4">S'enregistrer</h1>
 
-		{{ form_errors(registrationForm) }}
+	<h1 class="mt-4">S'enregistrer</h1>
 
-		{{ form_start(registrationForm) }}
+	{{ form_errors(registrationForm) }}
 
-
-		<div class="form-group">
-			{{ form_row(registrationForm.email)}}
-		</div>
-
-		<div class="form-group">
-			{{ form_row(registrationForm.username) }}
-		</div>
-
-		<div class="form-group">
-			{{ form_row(registrationForm.plainPassword) }}
-			<div>
-				<p>Compléxité du mot de passe  :
-					<span id="entropy" class="text-red">
-						Très faible
-					</span>
-					(La compléxité minimale acceptée est "fort")</p>
-			</div>
-
-		</div>
+	{{ form_start(registrationForm) }}
 
 
-		<div class="form-group">
-			{{ form_row(registrationForm.agreeTerms) }}
-		</div>
-
-		{#<button type="submit" class="btn" id="submit-button" disabled>M'inscrire</button>#}
-		{{ form_end(registrationForm) }}
-
-
-		<p>Déja inscrit (e) ?
-			<a href="{{ path('app_login') }}">Me connecter</a>
-		</p>
-
+	<div class="form-group">
+		{{ form_row(registrationForm.email)}}
 	</div>
+
+	<div class="form-group">
+		{{ form_row(registrationForm.username) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(registrationForm.plainPassword) }}
+
+		{#
+								<div>
+									<p>Compléxité du mot de passe  :
+										<span id="entropy" class="text-red">
+											Très faible
+										</span>
+										(La compléxité minimale acceptée est "fort")</p>
+								</div>
+					#}
+	</div>
+
+
+	<div class="form-group">
+		{{ form_row(registrationForm.agreeTerms) }}
+	</div>
+
+	{#<button type="submit" class="btn" id="submit-button" disabled>M'inscrire</button>#}
+	{{ form_end(registrationForm) }}
+
+
+	<p>Déja inscrit (e) ?
+		<a href="{{ path('app_login') }}">Me connecter</a>
+	</p>
+
+
 {% endblock %}
