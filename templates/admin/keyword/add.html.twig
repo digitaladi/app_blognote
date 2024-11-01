@@ -6,21 +6,19 @@
 {% block body %}
 
 
-	<div class="container">
-		<h1 class="mt-4">Ajouter un mot clé</h1>
-		{{ form_start(keywordForm) }}
+	<h1 class="mt-4">Ajouter un mot clé</h1>
+	{{ form_start(keywordForm) }}
 
-		<div class="form-group">
-			{{ form_label(keywordForm.name) }}
-			{{ form_widget(keywordForm.name) }}
+	<div class="form-group">
+		{{ form_label(keywordForm.name) }}
+		{{ form_widget(keywordForm.name) }}
 
-			<div class="form-error">
-				{{ form_errors(keywordForm.name) }}
-			</div>
+		<div class="form-error">
+			{{ form_errors(keywordForm.name) }}
 		</div>
-
-		{{ form_end(keywordForm) }}
-
-
 	</div>
+
+	{{ form_end(keywordForm) }}
+
+
 {% endblock %}

@@ -6,31 +6,29 @@
 {% block body %}
 
 
-	<div class="container">
-		<h1 class="mt-2">Modification de l'utilisateur</h1>
+	<h1 class="mt-2">Modification de l'utilisateur</h1>
 
-		{{ form_start(userFormAdmin) }}
+	{{ form_start(userFormAdmin) }}
 
 
-		<div class="form-group">
-			{{ form_label(userFormAdmin.username) }}
-			{{ form_widget(userFormAdmin.username) }}
-			<div class="form-error">
-				{{ form_errors(userFormAdmin.username) }}
-			</div>
+	<div class="form-group">
+		{{ form_label(userFormAdmin.username) }}
+		{{ form_widget(userFormAdmin.username) }}
+		<div class="form-error">
+			{{ form_errors(userFormAdmin.username) }}
 		</div>
-
-		<div class="form-group">
-			{{ form_label(userFormAdmin.email) }}
-			{{ form_widget(userFormAdmin.email) }}
-			<div class="form-error">
-				{{ form_errors(userFormAdmin.email) }}
-			</div>
-		</div>
-
-
-		{{ form_end(userFormAdmin ) }}
-
-
 	</div>
+
+	<div class="form-group">
+		{{ form_label(userFormAdmin.email) }}
+		{{ form_widget(userFormAdmin.email) }}
+		<div class="form-error">
+			{{ form_errors(userFormAdmin.email) }}
+		</div>
+	</div>
+
+
+	{{ form_end(userFormAdmin ) }}
+
+
 {% endblock %}

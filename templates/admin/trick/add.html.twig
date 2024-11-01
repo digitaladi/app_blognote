@@ -10,66 +10,63 @@
 
 {% block body %}
 
+	<h1 class="mt-4">Création d'un astuce</h1>
 
-	<div class="container">
-		<h1 class="mt-4">Création d'un astuce</h1>
-
-		{{ form_start(trickFormAdmin) }}
+	{{ form_start(trickFormAdmin) }}
 
 
-		<div class="form-group">
-			{{ form_label(trickFormAdmin.title) }}
-			{{ form_widget(trickFormAdmin.title) }}
+	<div class="form-group">
+		{{ form_label(trickFormAdmin.title) }}
+		{{ form_widget(trickFormAdmin.title) }}
 
-			<div class="form-error">
-				{{ form_errors(trickFormAdmin.title) }}
-			</div>
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.title) }}
 		</div>
-
-
-		<div class="form-group">
-			{{ form_label(trickFormAdmin.content) }}
-			{{ form_widget(trickFormAdmin.content) }}
-			<div class="form-error">
-				{{ form_errors(trickFormAdmin.content) }}
-			</div>
-		</div>
-
-
-		<div class="form-group">
-			{{ form_label(trickFormAdmin.featureimage) }}
-			{{ form_widget(trickFormAdmin.featureimage) }}
-			<div class="form-error">
-				{{ form_errors(trickFormAdmin.featureimage) }}
-			</div>
-
-			<div class="preview">
-				<img src="" alt="" width="300"/>
-			</div>
-		</div>
-
-
-		<div class="form-group">
-
-			{{ form_label(trickFormAdmin.categorie) }}
-			{{ form_widget(trickFormAdmin.categorie) }}
-			<div class="form-error">
-				{{ form_errors(trickFormAdmin.categorie) }}
-			</div>
-		</div>
-
-
-		<div class="form-group">
-			{{ form_label(trickFormAdmin.keyword) }}
-			{{ form_widget(trickFormAdmin.keyword) }}
-			<div class="form-error">
-				{{ form_errors(trickFormAdmin.keyword) }}
-
-			</div>
-		</div>
-
-		{{ form_end(trickFormAdmin) }}
 	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickFormAdmin.content) }}
+		{{ form_widget(trickFormAdmin.content) }}
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.content) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickFormAdmin.featureimage) }}
+		{{ form_widget(trickFormAdmin.featureimage) }}
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.featureimage) }}
+		</div>
+
+		<div class="preview">
+			<img src="" alt="" width="300"/>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+
+		{{ form_label(trickFormAdmin.categorie) }}
+		{{ form_widget(trickFormAdmin.categorie) }}
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.categorie) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickFormAdmin.keyword) }}
+		{{ form_widget(trickFormAdmin.keyword) }}
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.keyword) }}
+
+		</div>
+	</div>
+
+	{{ form_end(trickFormAdmin) }}
 
 
 {% endblock %}
