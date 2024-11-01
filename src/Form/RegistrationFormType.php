@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,23 +45,41 @@ class RegistrationFormType extends AbstractType
             ])
 
             
-            ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les conditions',
-                'label_attr' =>[
-                    'class' => 'form-check-label mt-4'
+
+
+
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                          'placeholder' => 'mot de passe',
+                             'class' => 'form-control'
+                    ],
+                    'label_attr' =>[
+                        'class' => 'form-label mt-4'
+                    ],
+                    
                 ],
-                'attr' => [
-                   'class' => 'form-check-input ms-1 mt-4' 
-                ],
-      
-                'mapped' => false, //ne doit pas etre pris en compte par le mappage de l'entité user
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                'second_options' => [
+                    'label' => 'Confirmation de mot de passe',
+                    'attr' => [
+                        
+                          'placeholder' => 'Confirmation de mot de passe',
+                             'class' => 'form-control'
+                    ],
+                    'label_attr' =>[
+                        'class' => 'form-label mt-4'
+                    ],
                 ],
             ])
 
+
+/*
 
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
@@ -88,7 +107,7 @@ class RegistrationFormType extends AbstractType
                     ]),
 
 
-
+                    
 
                     //un mot de passe très fort
 
@@ -100,9 +119,29 @@ class RegistrationFormType extends AbstractType
                         //PasswordStrength::STRENGTH_STRONG = 3
                         //PasswordStrength::STRENGTH_VERY_STRONG = 4
                     )
-                        */
+                       
                 ],
             ])
+
+ */
+            
+            ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les conditions',
+                'label_attr' =>[
+                    'class' => 'form-check-label mt-4'
+                ],
+                'attr' => [
+                   'class' => 'form-check-input ms-1 mt-4' 
+                ],
+      
+                'mapped' => false, //ne doit pas etre pris en compte par le mappage de l'entité user
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
+            ])
+
 
 
             ->add('submit', SubmitType::class, [

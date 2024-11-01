@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
 
             //on récupère le mot de passe rentré
-            $plainPassword = $form->get('plainPassword')->getData();
+            $plainPassword = $form->get('password')->getData();
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));

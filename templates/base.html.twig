@@ -35,11 +35,14 @@
 
 		{% endfor %}
 	{% endfor %}
-	<div class="container mt-4"> {% block body %}{% endblock %}
-		</div>
-
-		{#  on inclus le footer #}
-		{% include "_partials/footer.html.twig" %}
+	<body>
 
 
+		<div class="container mt-4"> {% block body %}{% endblock %}
+			</div>
+
+			{#  on inclus le footer #}
+			{% include "_partials/footer.html.twig" %}
+
+		</body>
 	</html>

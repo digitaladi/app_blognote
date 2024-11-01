@@ -33,7 +33,7 @@ class TrickProfileController extends AbstractController
 
         $lastTricks = $trickRepository->findOneBy([], ['id' => 'DESC']);
         $tricks  = $trickRepository->findBy([], ['id'=> 'DESC'], 8);
-
+       // dd($tricks);
         //on récupère les utilisateurs qui ont plus de posts par ordre 
         $bestAuthors = $userRepository->getUserByTricks(2);
         //dd($tricks);
