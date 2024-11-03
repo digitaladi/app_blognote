@@ -19,14 +19,15 @@
 
 					<div class="ms-1">
 						<p>
-							Username</p>
+							{{app.user.username}}</p>
 					</div>
 					<div class="ms-1">
-						<p>Email de l'utilisateur</p>
+						<p>{{app.user.email}}</p>
 					</div>
 					<div class="ms-1">
 						<small>
-							<i>Inscris depuis 15/20/2024</i>
+							<i>Inscris depuis
+								{{app.user.createdAt|date("m/d/Y")}}</i>
 						</small>
 					</div>
 
@@ -49,7 +50,7 @@
 
 			<div class="w-50 text-center ">
 				<p>Dernière connexion</p>
-				<h3 class="text-color-pink-blognote">25/12/205</h3>
+				<h3 class="text-color-pink-blognote">25/12/2025</h3>
 			</div>
 
 
@@ -62,7 +63,7 @@
 		<div class="block_index_profil card p-2 flex-fill bd-highlight">
 			<h4 class="text-color-pink-blognote text-center fw-light">Gestion de mon profil</h4>
 			<div class="text-center mt-2">
-				<a href="#">{{ ux_icon('streamline:user-profile-focus', {height:'50px', width:'50px'}) }}</a>
+				<a href="{{ path('app_profile_user_index', {id:app.user.id}) }}">{{ ux_icon('streamline:user-profile-focus', {height:'50px', width:'50px'}) }}</a>
 			</div>
 		</div>
 		<div class="block_index_profil ms-2 card p-2 flex-fill bd-highlight">
@@ -72,9 +73,9 @@
 			</div>
 		</div>
 		<div class="block_index_profil ms-2 card p-2 flex-fill bd-highlight ">
-			<h4 class="text-color-pink-blognote text-center fw-light">Liste de mes astuces</h4>
+			<h4 class="text-color-pink-blognote text-center fw-light">Voir mes statistiques</h4>
 			<div class="text-center mt-2">
-				<a href="#">{{ ux_icon('game-icons:magick-trick', {height:'50px', width:'50px'}) }}</a>
+				<a href="#">{{ ux_icon('nimbus:stats', {height:'50px', width:'50px'}) }}</a>
 			</div>
 		</div>
 	</div>
