@@ -29,24 +29,26 @@ class TrickProfileController extends AbstractController
     public function index(TrickRepository $trickRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
         //on accéde ici que si on est role_user
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        //$this->denyAccessUnlessGranted('ROLE_USER');
 
-        $lastTricks = $trickRepository->findOneBy([], ['id' => 'DESC']);
-        $tricks  = $trickRepository->findBy([], ['id'=> 'DESC'], 8);
+        //$lastTricks = $trickRepository->findOneBy([], ['id' => 'DESC']);
+
+        //on récupéres les astuces de l'utilisateur connecté
+        $tricks  = $trickRepository->findBy(['user' => $this->getUser()]);
        // dd($tricks);
         //on récupère les utilisateurs qui ont plus de posts par ordre 
-        $bestAuthors = $userRepository->getUserByTricks(2);
+      //  $bestAuthors = $userRepository->getUserByTricks(2);
         //dd($tricks);
 
         return $this->render('profil/trick/index.html.twig', 
-            compact('tricks', 'lastTricks','bestAuthors')
+            compact('tricks')
         );
     }
 
 
 
 
-    #[Route('/addTrick', name: 'add')]
+    #[Route('/add', name: 'add')]
     public function addTrick(Request $request, SluggerInterface $slugger, EntityManagerInterface $em, UserRepository $userRepository, PictureService $pictureService): Response
     {
         //on initialise  l'astuce
@@ -100,9 +102,111 @@ class TrickProfileController extends AbstractController
 
 
 
-public function removeTrick($trick){
 
-}
+
+    #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
+    /**
+     * Editer une astuce (coté profil)
+     *
+     * @param EntityManagerInterface $em
+     * @param Trick $trick
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param PictureService $pictureService
+     * @return Response
+     */
+    public function Edit(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
+            //paramconverter permet de de dire que $trick en parametre correspond l'id du route
+
+         //   $trick = $trickRepository->findOneBy(["id" => $id]);
+           // dd($trick->getUser()->getId());
+            $trickFormProfil = $this->createForm(AddTrickFormType::class, $trick);
+
+                 //on traite le formualaire
+             $trickFormProfil->handleRequest($request);
+
+            if($trickFormProfil->isSubmitted() && $trickFormProfil->isValid()){
+               // dd($trickFormAdmin->getData());
+                //on crée le slug à parti du nom de l'astuce
+                $slug = strtolower($slugger->slug($trick->getTitle()) );
+              //     dd($this->getUser());
+                $trick->setUser($trick->getUser());
+              //  dd($featuredImage);
+               $featuredImage = $trickFormProfil->get('featureimage')->getData();
+              
+               $image = $pictureService->square($featuredImage, '/tricks', 200);
+                $trick->setFeatureimage($image)   ;
+
+
+
+                //dd($slug);
+                //on assgine uen valeur au slug de  l'astuce
+                $trick->setSlug($slug);
+                $trick->setCreatedAt(new \DateTimeImmutable());
+                $trick->setUpdatedAt(new \DateTimeImmutable());
+                $em->persist($trick);
+                $em->flush();
+
+                $this->addFlash('success', 'L\'astuce a été modifiée');
+                return $this->redirectToRoute('app_profil_trick_index');
+            }
+            return $this->render('profil/trick/edit.html.twig', [
+                    'trickFormProfil' => $trickFormProfil,
+                ]);
+        }
+
+
+
+
+
+
+        #[Route('/show/{id}', name:"show")]
+        /**
+         * Afficher une astuce (coté profil)
+         *
+         * @param Trick $trick
+         * @return Response
+         */
+        public function showTrickAdmin(Trick $trick): Response{
+            
+           // dd($trick);
+    
+           if(!$trick){
+            throw $this->createNotFoundException("Cette astuce n'existe pas ");
+           }
+            return $this->render('profil/trick/show.html.twig', [
+                'trick' => $trick,
+            ]);
+        }
+
+
+
+
+
+
+        #[Route('/delete/{id}', name:"delete")]
+        /**
+         * Supprimer une astuce (coté profil)
+         *
+         * @param Trick $trick
+         * @param EntityManagerInterface $em
+         * @return Response
+         */
+       public function delete(Trick $trick, EntityManagerInterface $em):Response{
+
+
+           if($trick){
+               $em->remove($trick);
+               $em->flush();
+               $this->addFlash('success', 'L\'astuce a été supprimé');
+               return $this->redirectToRoute('app_profil_trick_index');
+           }else{
+               $this->addFlash('warning', 'L\'astuce n a pas été trouvé');
+           }
+
+
+   }
+
 
 
 }

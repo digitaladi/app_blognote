@@ -1,21 +1,34 @@
 <?php
 namespace App\Controller\Profil;
 
+use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\EditUserPasswordType;
 use App\Form\UserProfileEditType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/profile/user', name:"app_profile_user_")]
 Class UserProfileController extends AbstractController{
 
 
     #[Route('/{id}', name:"index")]
+
+    /**
+     * cette fonction affiche la gestion du profil de l'utilisateur connecté
+     *
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param UserPasswordHasherInterface $hasher
+     * @return Response
+     */
     public function index(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response{
     
 
@@ -46,7 +59,7 @@ if($formEditUserPassword->isSubmitted() && $formEditUserPassword->isValid()){
       return $this->redirectToRoute('app_profile_user_index', array('id' => $user->getId()));
   }else{
     $this->addFlash('warning', 'Le mot de passe renseigné est incorrect');
-    return $this->redirectToRoute('app_profile_user_index', array('id' => $user->getId()));
+    //return $this->redirectToRoute('app_profile_user_index', array('id' => $user->getId()));
   }
 
 
@@ -74,14 +87,6 @@ if($formeditUser->isSubmitted() && $formeditUser->isValid()){
 }
 
 
-   // $users = $userRepository->findAll();
-    //dd($users->getTricks());
-    /*
-    foreach($users as $user) {
-      dd( $user->getTricks()) ;
-    }
-    
-    */
 
 
 
@@ -101,14 +106,6 @@ if($formeditUser->isSubmitted() && $formeditUser->isValid()){
 
 
 
-
-    #[Route('/edit', name:"edit")]
-    public function edit($user) : Response{
-      return $this->render('profil/user/index.html.twig', [
-        // 'users' => $users,
-         //'is_actif' => true
-     ]);
-    }
 
 
 

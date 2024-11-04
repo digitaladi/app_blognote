@@ -97,10 +97,10 @@ class TrickAdminController  extends AbstractController{
 
 
 
-   
+     
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
     /**
-     * Editer une notation (coté admin)
+     * Editer une astuce (coté admin)
      *
      * @param EntityManagerInterface $em
      * @param Trick $trick
@@ -109,7 +109,7 @@ class TrickAdminController  extends AbstractController{
      * @param PictureService $pictureService
      * @return Response
      */
-    public function EditTrickAdmin(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
+    public function Edit(EntityManagerInterface $em, Trick $trick,Request $request, SluggerInterface $slugger, PictureService $pictureService) : Response{
             //paramconverter permet de de dire que $trick en parametre correspond l'id du route
 
          //   $trick = $trickRepository->findOneBy(["id" => $id]);
@@ -196,5 +196,9 @@ class TrickAdminController  extends AbstractController{
         ]);
     }
 
+
+
+
+    
 
 }

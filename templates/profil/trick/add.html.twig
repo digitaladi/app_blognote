@@ -10,23 +10,63 @@
 
 {% block body %}
 
+	<h1 class="mt-4">Création d'un astuce</h1>
 
-	<div class="example-wrapper">
-		<h1>Ajouter un astuce</h1>
-		<div>
-			{{ form_start(trickForm) }}
-			{{ form_row(trickForm.title) }}
-			{{ form_row(trickForm.content) }}
-			{{ form_row(trickForm.featureimage) }}
-			<div class="preview">
-				<img src="" alt="" width="300"/>
-			</div>
-			{{ form_row(trickForm.categorie) }}
-			{{ form_row(trickForm.keyword) }}
-			<button type="submit">Ajouter</button>
-			{{ form_end(trickForm) }}
+	{{ form_start(trickForm) }}
+
+
+	<div class="form-group">
+		{{ form_label(trickForm.title) }}
+		{{ form_widget(trickForm.title) }}
+
+		<div class="form-error">
+			{{ form_errors(trickForm.title) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickForm.content) }}
+		{{ form_widget(trickForm.content) }}
+		<div class="form-error">
+			{{ form_errors(trickForm.content) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickForm.featureimage) }}
+		{{ form_widget(trickForm.featureimage) }}
+		<div class="form-error">
+			{{ form_errors(trickForm.featureimage) }}
 		</div>
 
-
+		<div class="preview">
+			<img src="" alt="" width="300"/>
+		</div>
 	</div>
+
+
+	<div class="form-group">
+
+		{{ form_label(trickForm.categorie) }}
+		{{ form_widget(trickForm.categorie) }}
+		<div class="form-error">
+			{{ form_errors(trickForm.categorie) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		{{ form_label(trickForm.keyword) }}
+		{{ form_widget(trickForm.keyword) }}
+		<div class="form-error">
+			{{ form_errors(trickForm.keyword) }}
+
+		</div>
+	</div>
+
+	{{ form_end(trickForm) }}
+
+
 {% endblock %}

@@ -9,14 +9,13 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\All;
-use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
+use Symfony\Component\Validator\Constraints\Image;
 class AddTrickFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -24,22 +23,38 @@ class AddTrickFormType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre de l\'astuce',
+                'label_attr' =>[
+                    'class' => 'form-label mt-4'
+                ],
                 'constraints' => [
                     new NotBlank()
+                ],
+                'attr' => [
+                    'class' => 'form-control'
                 ]
 
             ])
          
             ->add('content', TextareaType::class, [
-                'label' => 'Le descriptif de l\'astuce'
+                'label' => 'Le descriptif de l\'astuce',
+                'label_attr' =>[
+                    'class' => 'form-label mt-4'
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('featureimage', FileType::class, [
 
                'label' => 'Image d\'illustration',
+               'label_attr' =>[
+                'class' => 'form-label mt-4'
+            ],
                'mapped' => false,
               // 'multiple' => true,
               'attr'=>[
-                'accept' => 'image/png, image/jpeg, image/webp'
+                'accept' => 'image/png, image/jpeg, image/webp',
+                 'class' => 'form-control'
               ],
                'constraints' => [
             //    new All( //permet de mettre des contraintes sur plusieurs 
@@ -68,18 +83,50 @@ class AddTrickFormType extends AbstractType
                 'choice_label' => 'id',
             ])
 
-*/
+  */
+
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
+                
                 'choice_label' => 'name',
-                'multiple' => true, //on peut choisir plusieurs
-                 'expanded' => true, // case à cocher
+                'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
+               // 'multiple' => true, //on peut choisir plusieurs
+                 //'expanded' => true, // case à cocher
+                 'label' => 'La catégorie de l\'astuce',
+                 'label_attr' =>[
+                     'class' => 'form-check-label mt-4 mb-1'
+                 ],
+                 
+                 'attr' => [
+                    'class' => 'form-select'
+                ]
+                    
             ])
+
+          
             ->add('keyword', EntityType::class, [
-                'class' => Keyword::class,
+                'label' => 'Mot clé de l\'astuce',
+                'label_attr' =>[
+                    'class' => 'form-check-label mt-4  mb-1'
+                ],
+                'choice_attr' => function () { return array('class' => 'form-check-input'); },//styliser une option
+                                 
+                 'attr' => [
+                    'class' => 'form-select'
+                 ],
+                    
+
+                'class' => Keyword::class,  
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true, // case à cocher
+                //'multiple' => true,
+                //'expanded' => true, // case à cocher
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Créer une astuce',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-4'
+                ]
             ])
         ;
     }
