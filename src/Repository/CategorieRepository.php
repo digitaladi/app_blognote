@@ -40,4 +40,39 @@ class CategorieRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+
+
+
+
+    public function tricksByCategory(): array
+    {
+
+    return $this->createQueryBuilder('c') //la lettre t est une alias de la table trick
+                ->select('c', 't')
+                //->from('categorie', 'c') //
+                 ->leftJoin('c.tricks', 't')
+                //->groupBy('c.name')
+                 //->orderBy('t.title', 'ASC') //par ordre title par  ascendant 
+                 //->setMaxResults(2) //le nombre de ligne 
+                 //->join('t.categorie', 'c')
+                 //->addSelect('c')
+              //   ->where('t.categorie_id = c.id')
+                  //->addSelect("c")
+                        //  ->select('c')    
+              //    ->from('categorie', 'c')
+              //   ->join("c.name", "trick")
+               //  ->groupBy('t.categorie')
+                 ->getQuery()
+                // ->getResult()
+                 ->getArrayResult();
+                 
+        ;
+    }
+
+
+
+
+
 }

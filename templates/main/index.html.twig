@@ -6,64 +6,108 @@
 
 {% block body %}
 
-	<h1>Astuce</h1>
+	{#	<h1 class="text-center fw-light">Profiter et partager des astuces</h1>#}
+	<h1 class="text-center fw-light">Contribuer à l'excellence</h1>
 	{#{% if is_actif == true %} #}
 
 
-	<div class="cardcontainer">
-		<div class="photo">
-			<img src="https://images.pexels.com/photos/2346006/pexels-photo-2346006.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500">
-			<div class="photos">Photos</div>
-		</div>
-		<div class="content">
-			<p class="txt4">City Lights In Newyork</p>
-			<p class="txt5">A city that never sleeps</p>
-			<p class="txt2">New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.</p>
-		</div>
-		<div class="footer">
-			<p>
-				<a class="waves-effect waves-light btn" href="#">Read More</a>
-				<a id="heart">
-					<span class="like">
-						<i class="fab fa-gratipay"></i>Like</span>
-				</a>
-			</p>
-			<p class="txt3">
-				<i class="far fa-clock"></i>10 Minutes Ago
-				<span class="comments">
-					<i class="fas fa-comments"></i>45 Comments</span>
-			</p>
-		</div>
+	<!-- Tabs navs -->
+	<ul class="nav nav-pills nav-justified mt-4 p-2 border rounded-5">
+		<li class="nav-item text-color-blognote">
+			{{ ux_icon('icon-park-outline:sport', {height:'30px', width:'30px'}) }}
+			<a class="nav-link" aria-current="page" href="#">Sport</a>
+		</li>
+		<li class="nav-item text-color-blognote">
+			{{ ux_icon('lucide:computer', {height:'30px', width:'30px'}) }}
+			<a class="nav-link" href="#">Informatique</a>
+		</li>
+		<li class="nav-item text-color-blognote">
+			{{ ux_icon('mage:health-square',{height:'30px', width:'30px'}) }}
+			<a class="nav-link" href="#">Santé</a>
+		</li>
+		<li class="nav-item text-color-blognote">
+			{{ ux_icon('game-icons:auto-repair',{height:'30px', width:'30px'}) }}
+			<a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Bricolage</a>
+		</li>
+	</ul>
+	<!-- Tabs content -->
+
+
+	<div class="d-flex flex-row mt-4 justify-content-between">
+		{% for categorie in categories %}
+			<div class="cardcontainer">
+				<div class="photo">
+					<img src="https://images.pexels.com/photos/2346006/pexels-photo-2346006.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500">
+					<div class="photos">Photos</div>
+				</div>
+				<div class="content">
+					<p class="txt4">City Lights In Newyork</p>
+					<p class="txt5">A city that never sleeps</p>
+					<p class="txt2">New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.</p>
+				</div>
+				<div class="footer">
+					<p>
+						<a class="waves-effect waves-light btn" href="#">Read More</a>
+						<a id="heart">
+							<span class="like">
+								<i class="fab fa-gratipay"></i>Like</span>
+						</a>
+					</p>
+					<p class="txt3">
+						<i class="far fa-clock"></i>10 Minutes Ago
+						<span class="comments">
+							<i class="fas fa-comments"></i>45 Comments</span>
+					</p>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
 
 
 	{#
-		<table class="table table-hover">
-			<thead>
-				<tr class="table-secondary">
-					<th scope="col">Voir l'image</th>
-					<th scope="col">Titre</th>
-					<th scope="col">Contenu de l'astuce</th>
-					<th scope="col">Date de création</th>
-				</tr>
-			</thead>
-	
-	
-			<tbody>
-	
-				{% for trick in tricks %}
-					<tr class="table-light">
-						<th scope="row">{{ trick.id }}
-						</th>
-						<td>{{ trick.title }}</td>
-						<td>{{ trick.content }}</td>
-						<td>{{ trick.createdAt|date("d/m/Y") }}</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	#}
+																																																																																									<table class="table table-hover">
+																																																																																										<thead>
+																																																																																											<tr class="table-secondary">
+																																																																																												<th scope="col">Voir l'image</th>
+																																																																																												<th scope="col">Titre</th>
+																																																																																												<th scope="col">Contenu de l'astuce</th>
+																																																																																												<th scope="col">Date de création</th>
+																																																																																											</tr>
+																																																																																										</thead>
+																																																																																								
+																																																																																								
+																																																																																										<tbody>
+																																																																																								
+																																																																																											{% for trick in tricks %}
+																																																																																												<tr class="table-light">
+																																																																																													<th scope="row">{{ trick.id }}
+																																																																																													</th>
+																																																																																													<td>{{ trick.title }}</td>
+																																																																																													<td>{{ trick.content }}</td>
+																																																																																													<td>{{ trick.createdAt|date("d/m/Y") }}</td>
+																																																																																												</tr>
+																																																																																											{% endfor %}
+																																																																																										</tbody>
+																																																																																									</table>
+																																																																																								#}
 	{#	{% endif %} #}
+
+
+	<ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
+		{% for categorie in categories %}
+			<li class="nav-item  bg-primary" role="presentation">
+				<button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#{{categorie.name}}" type="button" role="tab" aria-controls="pills-home" aria-selected="true">{{ categorie.name }}</button>
+			</li>
+
+
+		</ul>
+		<div class="tab-content" id="pills-tabContent">
+			{% for trick in categorie.tricks %}
+				<div class="tab-pane fade show active" id="{{categorie.name}}" role="tabpanel" aria-labelledby="pills-home-tab">{{ trick.title }}</div>
+
+			</div>
+		{% endfor %}
+	{% endfor %}
 
 
 {% endblock %}

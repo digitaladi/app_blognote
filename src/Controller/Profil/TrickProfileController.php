@@ -11,6 +11,7 @@ use App\Service\PictureService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -102,8 +103,9 @@ class TrickProfileController extends AbstractController
 
 
 
-
-
+//  #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')] : n'est accessible que l'utilisateur connecté à qui appartient l'astuce trick
+//c'est pour éviter d'acceder à une astuce qui appartient à un autre utilisateur
+    #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
     /**
      * Editer une astuce (coté profil)

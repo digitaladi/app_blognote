@@ -3,6 +3,7 @@
 // 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +23,22 @@ class MainController extends AbstractController
      * @return Response
      */
     #[Route('/', name: 'app_home')]
-    public function index(TrickRepository $trickRepository, EntityManagerInterface $entityManagerInterface): Response
+    public function index(TrickRepository $trickRepository, CategorieRepository $categorieRepository,  EntityManagerInterface $entityManagerInterface): Response
     {
 
 
-
-
-        $tricks  = $trickRepository->trickByCategory();
-        //dd($tricks);
+    
+       // $trickByCategory = $trickRepository->getTr
+       $categories =   $categorieRepository->tricksByCategory();
+     //   $tricks  = $trickRepository->trickByCategory();
+      //  dd($categories);
 
         // 
 
         
         //$tab = [ "kevin", "joe", "rambo"];
         return $this->render('main/index.html.twig', [
-            'tricks' => $tricks,
+            'categories' => $categories,
             'is_actif' => true
         ]);
     }

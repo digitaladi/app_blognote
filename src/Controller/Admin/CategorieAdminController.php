@@ -14,6 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 //Permet de tous les methodes de cet controller sont accesible si on a le role admin
+//on peut aussi le mettre sur chaque fonction
 //#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/categorie', name: 'app_admin_categorie_')]
 class CategorieAdminController extends AbstractController

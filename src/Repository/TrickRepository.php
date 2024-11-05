@@ -46,10 +46,19 @@ class TrickRepository extends ServiceEntityRepository
 
         public function trickByCategory(): array
        {
-       return $this->createQueryBuilder('t')
-                    //    ->addSelect("c")
-                       //      ->select('c')    
-                   //   ->from('Categorie', 'c')
+
+       return $this->createQueryBuilder('t') //la lettre t est une alias de la table trick
+                    ->select('t')
+                 //   ->from('Trick', 't') //
+                    ->leftJoin('t.categories', 'c')
+                    ->orderBy('t.title', 'ASC') //par ordre title par  ascendant 
+                    //->setMaxResults(2) //le nombre de ligne 
+                    //->join('t.categorie', 'c')
+                    ->addSelect('c')
+                 //   ->where('t.categorie_id = c.id')
+                     //->addSelect("c")
+                           //  ->select('c')    
+                 //    ->from('categorie', 'c')
                  //   ->join("c.name", "trick")
                   //  ->groupBy('t.categorie')
                     ->getQuery()
@@ -58,5 +67,26 @@ class TrickRepository extends ServiceEntityRepository
        }
 
 
+/*
+       public function trickByCategoryOlRequest(){
+
+        /*
+        $sql = "SELECT * FROM trick";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+    //    $stmt->execute([]);
+    
+        return $stmt->fetch;
+
+       }
+
+return true;
 
 }
+*/
+
+
+
+
+
+    }
