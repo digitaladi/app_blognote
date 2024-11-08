@@ -72,6 +72,7 @@ class TrickProfileController extends AbstractController
                 $slug = strtolower($slugger->slug($trick->getTitle()) );
               //     dd($this->getUser());
                 $trick->setUser($this->getUser());
+                $trick->setPublic(false);
               //  dd($featuredImage);
                $featuredImage = $trickForm->get('featureimage')->getData();
               

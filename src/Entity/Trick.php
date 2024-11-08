@@ -64,6 +64,9 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private ?Keyword $keyword = null;
 
+    #[ORM\Column]
+    private ?bool $public = null;
+
     public function __construct()
     {
 
@@ -246,6 +249,18 @@ class Trick
     public function setKeyword(?Keyword $keyword): static
     {
         $this->keyword = $keyword;
+
+        return $this;
+    }
+
+    public function isPublic(): ?bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(bool $public): static
+    {
+        $this->public = $public;
 
         return $this;
     }

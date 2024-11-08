@@ -41,6 +41,9 @@ class Categorie
     #[ORM\OneToMany(targetEntity: Trick::class, mappedBy: 'categorie', orphanRemoval: true)]
     private Collection $tricks;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $icon = null;
+
 
 
     public function __toString() 
@@ -152,6 +155,18 @@ class Categorie
                 $trick->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): static
+    {
+        $this->icon = $icon;
 
         return $this;
     }

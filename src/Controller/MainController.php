@@ -3,6 +3,7 @@
 // 
 namespace App\Controller;
 
+use App\Form\GetTrickByCategorieFormType;
 use App\Repository\CategorieRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,19 +28,32 @@ class MainController extends AbstractController
     {
 
 
-    
-       // $trickByCategory = $trickRepository->getTr
-       $categories =   $categorieRepository->tricksByCategory();
-     //   $tricks  = $trickRepository->trickByCategory();
-      //  dd($categories);
 
+        $formTrcikByCategorie = $this->createForm(GetTrickByCategorieFormType::class);
+       // dd($formTrcikByCategorie);
+      // $trickByCategory = $trickRepository->findAll();
+       $categories =   $categorieRepository->tricksByCategory();
+      // $tricks  = $trickRepository->trickByCategory();
+       // dd($categories);
+
+
+        $tabsfinals = [];
+
+        foreach ($categories as $key => $value) {
+            $tabsfinals[$value['name']] = $value['tricks'];
+            //dd($value['name'] = $value['tricks']);
+        }
+
+
+     //  dd($tabsfinals);
         // 
 
         
         //$tab = [ "kevin", "joe", "rambo"];
         return $this->render('main/index.html.twig', [
             'categories' => $categories,
-            'is_actif' => true
+            'is_actif' => true,
+            'formTrcikByCategorie' =>$formTrcikByCategorie
         ]);
     }
 

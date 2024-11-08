@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-
+            $user->setActive(false);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -106,7 +106,7 @@ class RegistrationController extends AbstractController
             if($user && !$user->isVerified()){
                 $user->setVerified(true);
                 $entityManager->flush();
-                $this->addFlash('success', 'Utilisateur activé');
+                $this->addFlash('success', 'Utilisateur vérifié');
                 return $this->redirectToRoute('app_home');
             }
         }
