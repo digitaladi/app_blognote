@@ -3,6 +3,7 @@
 // 
 namespace App\Controller;
 
+use App\Entity\Trick;
 use App\Form\GetTrickByCategorieFormType;
 use App\Repository\CategorieRepository;
 use App\Repository\TrickRepository;
@@ -31,10 +32,10 @@ class MainController extends AbstractController
 
         $formTrcikByCategorie = $this->createForm(GetTrickByCategorieFormType::class);
        // dd($formTrcikByCategorie);
-      // $trickByCategory = $trickRepository->findAll();
+      $trickByCategory = $trickRepository->findAll();
        $categories =   $categorieRepository->tricksByCategory();
       // $tricks  = $trickRepository->trickByCategory();
-       // dd($categories);
+      // dd($trickByCategory);
 
 
         $tabsfinals = [];
@@ -46,11 +47,12 @@ class MainController extends AbstractController
 
 
      //  dd($tabsfinals);
-        // 
+     // 
 
         
         //$tab = [ "kevin", "joe", "rambo"];
         return $this->render('main/index.html.twig', [
+            'tricks' => $trickByCategory,
             'categories' => $categories,
             'is_actif' => true,
             'formTrcikByCategorie' =>$formTrcikByCategorie
@@ -78,10 +80,49 @@ public function  mentions():Response
 
 #[Route('/trickday', name: 'trickday')]
 public function TrickOfTheDay(): Response{
-    $this->denyAccessUnlessGranted('ROLE_USER');
+   // $this->denyAccessUnlessGranted('ROLE_USER');
 
 return $this->render('main/trickday.html.twig');
 }
 
 
+
+#[Route('main/trick/show/{id}', name:"main_show_trick")]
+/**
+ * Afficher une astuce (coté profil)
+ *
+ * @param Trick $trick
+ * @return Response
+ */
+public function show(Trick $trick): Response{
+    
+   dd($trick);
+
+   if(!$trick){
+    throw $this->createNotFoundException("Cette astuce n'existe pas ");
+   }
+    return $this->render('profil/trick/show.html.twig', [
+        'trick' => $trick,
+    ]);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+

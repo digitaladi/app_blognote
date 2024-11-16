@@ -99,7 +99,7 @@ class TrickAdminController  extends AbstractController{
 
 //  #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')] : n'est accessible que l'utilisateur connecté à qui appartient l'astuce trick
 //c'est pour éviter d'acceder à une astuce qui appartient à un autre utilisateur
-//#[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
+#[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
  
     /**
@@ -179,7 +179,7 @@ class TrickAdminController  extends AbstractController{
     }
 
 
-
+    #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
     #[Route('/show/{id}', name:"show")]
     /**
      * Afficher une notation (coté admin)
@@ -189,7 +189,7 @@ class TrickAdminController  extends AbstractController{
      */
     public function showTrickAdmin(Trick $trick): Response{
         
-       // dd($trick);
+      //  dd($trick->getCreatedAt()->getTimestamp());
 
        if(!$trick){
         throw $this->createNotFoundException("Cette astuce n'existe pas ");

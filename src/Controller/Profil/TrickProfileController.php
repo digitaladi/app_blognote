@@ -162,7 +162,7 @@ class TrickProfileController extends AbstractController
 
 
 
-
+        #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
         #[Route('/show/{id}', name:"show")]
         /**
          * Afficher une astuce (coté profil)
@@ -170,7 +170,7 @@ class TrickProfileController extends AbstractController
          * @param Trick $trick
          * @return Response
          */
-        public function showTrickAdmin(Trick $trick): Response{
+        public function show(Trick $trick): Response{
             
            // dd($trick);
     
