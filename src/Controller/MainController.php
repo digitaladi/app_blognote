@@ -3,15 +3,18 @@
 // 
 namespace App\Controller;
 
+use App\Entity\Rating;
 use App\Entity\Trick;
 use App\Form\GetTrickByCategorieFormType;
+use App\Form\RatingType;
 use App\Repository\CategorieRepository;
+use App\Repository\RatingRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends AbstractController
 {
@@ -32,7 +35,8 @@ class MainController extends AbstractController
 
         $formTrcikByCategorie = $this->createForm(GetTrickByCategorieFormType::class);
        // dd($formTrcikByCategorie);
-      $trickByCategory = $trickRepository->findAll();
+       //tous les atuces qui sont actif
+      $trickByCategory = $trickRepository->findBy(['public' => true]);
        $categories =   $categorieRepository->tricksByCategory();
       // $tricks  = $trickRepository->trickByCategory();
       // dd($trickByCategory);
@@ -87,22 +91,50 @@ return $this->render('main/trickday.html.twig');
 
 
 
-#[Route('main/trick/show/{id}', name:"main_show_trick")]
+#[Route('main/trick/show/{id}', name:"main.show.trick")]
 /**
  * Afficher une astuce (coté profil)
  *
  * @param Trick $trick
  * @return Response
  */
-public function show(Trick $trick): Response{
+public function show(Trick $trick, Rating $rating, RatingRepository $ratingRepository, EntityManagerInterface $em, Request $request): Response{
     
-   dd($trick);
-
-   if(!$trick){
+  // dd($trick);
+  if(!$trick){
     throw $this->createNotFoundException("Cette astuce n'existe pas ");
    }
-    return $this->render('profil/trick/show.html.twig', [
+
+  
+
+  $formRating = $this->createForm(RatingType::class, $rating);
+  //dd($formRating->getData());
+  $formRating->handleRequest($request);
+  if($formRating->isSubmitted() && $formRating->isValid()){
+    $rating->setUser($this->getUser());
+    $rating->setTrick($trick);
+
+    //si cette notation existe on n'a pas le droit d'en créer
+    $existingRating = $ratingRepository->findOneBy(['user' => $this->getUser(), 'trick' => $trick]);
+ 
+
+    //si cette notation n'existe pas on en crée un nouveau
+    if(!$existingRating){
+        $em->persist($rating);
+        $em->flush();
+
+      //  dd($rating);
+        $this->addFlash('success', 'l\'astuce '. $trick->getTitle(). ' a été noté' );
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+    }
+
+  
+  }
+
+
+    return $this->render('main/showTrick.html.twig', [
         'trick' => $trick,
+        'formRating' => $formRating
     ]);
 }
 

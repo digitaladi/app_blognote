@@ -18,12 +18,12 @@ class AddRatingAdminType extends AbstractType
     {
         $builder
             ->add('note', RangeType::class, [
-                'label' => "Noter de 1 a 5",
+                'label' => "Noter de 0 a 5",
                 'attr' => [
                     'min' => 0,
                     'max' => 5,
                     'step' => 1,
-                    'value'=> 1,
+                    'value'=> 0,
                     'class' => 'form-range'
                 ],
                

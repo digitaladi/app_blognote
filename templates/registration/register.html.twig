@@ -32,14 +32,14 @@
 		{{ form_row(registrationForm.password) }}
 
 		{#
-																		<div>
-																			<p>Compléxité du mot de passe  :
-																				<span id="entropy" class="text-red">
-																					Très faible
-																				</span>
-																				(La compléxité minimale acceptée est "fort")</p>
-																		</div>
-															#}
+																								<div>
+																									<p>Compléxité du mot de passe  :
+																										<span id="entropy" class="text-red">
+																											Très faible
+																										</span>
+																										(La compléxité minimale acceptée est "fort")</p>
+																								</div>
+																					#}
 	</div>
 
 
@@ -50,7 +50,7 @@
 	{#<button type="submit" class="btn" id="submit-button" disabled>M'inscrire</button>#}
 	{{ form_end(registrationForm) }}
 
-
+	<br>
 	<p>Déja inscrit (e) ?
 		<a href="{{ path('app_login') }}">Me connecter</a>
 	</p>

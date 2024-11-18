@@ -28,7 +28,10 @@
 					{{ trick.categorie.name  }}</li>
 				<li>Date de création :
 					{{ trick.createdAt|date("d/m/Y") }}</li>
-
+				<li>
+					La moyenne de l'astuce :
+					<strong>{{trick.average }}/5</strong>
+				</li>
 			</ul>
 
 		</div>

@@ -44,6 +44,9 @@ class Categorie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $icon = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $color = null;
+
 
 
     public function __toString() 
@@ -167,6 +170,18 @@ class Categorie
     public function setIcon(?string $icon): static
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

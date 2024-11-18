@@ -67,6 +67,11 @@ class Trick
     #[ORM\Column]
     private ?bool $public = null;
 
+
+    //la moyenne de note par astuce
+    private ?float $average = null;
+
+
     public function __construct()
     {
 
@@ -261,6 +266,48 @@ class Trick
     public function setPublic(bool $public): static
     {
         $this->public = $public;
+
+        return $this;
+    }
+
+
+
+        /**
+     * Get the value of average
+     * 
+     * la moyenne de sac astuce
+     */ 
+    public function getAverage()
+    {
+        
+        $ratings = $this->ratings;
+
+        //si l'astuce n'a pas de note on met $this->average à null
+        if ($ratings->toArray() === []){
+            $this->average = null;
+            return $this->average;
+        }
+
+        $total = 0;
+
+        //sinon on récupére les notes cumulés de l'astuce
+        foreach($ratings  as $rating){
+        $total += $rating->getNote();
+        }
+        //la moyenne de l'astuce
+        $this->average = $total / count($ratings);
+        return $this->average;
+    }    //la moyenne de note par astuce
+
+
+    /**
+     * Set the value of average
+     *
+     * @return  self
+     */ 
+    public function setAverage($average)
+    {
+        $this->average = $average;
 
         return $this;
     }
