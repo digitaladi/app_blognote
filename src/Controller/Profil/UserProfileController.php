@@ -53,7 +53,6 @@ Class UserProfileController extends AbstractController{
 */
 
 
-
 $formEditUserPassword = $this->createForm(EditUserPasswordType::class);
 $formEditUserPassword->handleRequest($request);
 

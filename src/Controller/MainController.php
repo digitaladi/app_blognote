@@ -98,14 +98,14 @@ return $this->render('main/trickday.html.twig');
  * @param Trick $trick
  * @return Response
  */
-public function show(Trick $trick, Rating $rating, RatingRepository $ratingRepository, EntityManagerInterface $em, Request $request): Response{
+public function show(Trick $trick,RatingRepository $ratingRepository, EntityManagerInterface $em, Request $request): Response{
     
   // dd($trick);
   if(!$trick){
     throw $this->createNotFoundException("Cette astuce n'existe pas ");
    }
 
-  
+   $rating = new Rating() ;
 
   $formRating = $this->createForm(RatingType::class, $rating);
   //dd($formRating->getData());
@@ -117,6 +117,11 @@ public function show(Trick $trick, Rating $rating, RatingRepository $ratingRepos
     //si cette notation existe on n'a pas le droit d'en créer
     $existingRating = $ratingRepository->findOneBy(['user' => $this->getUser(), 'trick' => $trick]);
  
+    if($trick->getUser() == $this->getUser()){
+        $this->addFlash('warning', 'Vous ne pouvez pas noter votre propre astuce !' );
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+    }
+
 
     //si cette notation n'existe pas on en crée un nouveau
     if(!$existingRating){
@@ -124,7 +129,10 @@ public function show(Trick $trick, Rating $rating, RatingRepository $ratingRepos
         $em->flush();
 
       //  dd($rating);
-        $this->addFlash('success', 'l\'astuce '. $trick->getTitle(). ' a été noté' );
+        $this->addFlash('warning', 'l\'astuce "'. $trick->getTitle(). '" a été noté !' );
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+    }else{
+        $this->addFlash('success', 'Vous avez déja noté cette astuce' );
         return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
     }
 

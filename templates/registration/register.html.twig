@@ -32,17 +32,19 @@
 		{{ form_row(registrationForm.password) }}
 
 		{#
-																								<div>
-																									<p>Compléxité du mot de passe  :
-																										<span id="entropy" class="text-red">
-																											Très faible
-																										</span>
-																										(La compléxité minimale acceptée est "fort")</p>
-																								</div>
-																					#}
+																												<div>
+																													<p>Compléxité du mot de passe  :
+																														<span id="entropy" class="text-red">
+																															Très faible
+																														</span>
+																														(La compléxité minimale acceptée est "fort")</p>
+																												</div>
+																									#}
 	</div>
 
-
+	<div class="form-group">
+		{{ form_row(registrationForm.imageFile) }}
+	</div>
 	<div class="form-group">
 		{{ form_row(registrationForm.agreeTerms) }}
 	</div>

@@ -71,7 +71,7 @@ public function edit(User $user, EntityManagerInterface $em, Request $request): 
         $em->flush();
 
         $this->addFlash('success', 'L\'utilisateur a été modifiée');
-        return $this->redirectToRoute('home_admin_user');
+        return $this->redirectToRoute('app_admin_user_index');
     }
 
         return $this->render('admin/user/edit.html.twig', [
@@ -97,7 +97,7 @@ public function delete(User $user, EntityManagerInterface $em):Response{
         $em->remove($user);
         $em->flush();
         $this->addFlash('success', 'L\'utilisateur  a été supprimé');
-        return $this->redirectToRoute('home_admin_user');
+        return $this->redirectToRoute('app_admin_user_index');
     }else{
         $this->addFlash('warning', 'L\'utilisateur n a pas été trouvé');
     }

@@ -16,6 +16,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -124,7 +126,20 @@ class RegistrationFormType extends AbstractType
             ])
 
  */
-            
+
+
+                    ->add('imageFile', VichImageType::class, [
+                        'label' => 'Votre avatar',
+                       // "mapped" => false,
+                        'label_attr' =>[
+                         'class' => 'form-label mt-4'
+                        ],
+                        'attr'=>[
+                            'accept' => 'image/png, image/jpeg, image/webp',
+                             'class' => 'form-control'
+                          ],
+                        ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Accepter les conditions',
                 'label_attr' =>[

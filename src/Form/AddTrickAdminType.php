@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -85,6 +86,17 @@ class AddTrickAdminType extends AbstractType
 
   */
 
+  ->add('public', CheckboxType::class, [
+    'label' => 'Voulez vous rendre public l\'astuce ?',
+    'attr' => [
+        'class' => 'form-check-input mt-4'
+     ],
+        
+    'label_attr' =>[
+        'class' => 'form-check-label mt-4 me-1'
+    ],
+  ])
+
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 
@@ -102,6 +114,7 @@ class AddTrickAdminType extends AbstractType
                 ]
                     
             ])
+
 
           
             ->add('keyword', EntityType::class, [

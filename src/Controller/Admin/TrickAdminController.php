@@ -67,7 +67,7 @@ class TrickAdminController  extends AbstractController{
                 $slug = strtolower($slugger->slug($trick->getTitle()) );
               //     dd($this->getUser());
                 $trick->setUser($this->getUser());
-                $trick->setPublic(false);
+               // $trick->setPublic(false);
               //  dd($featuredImage);
                $featuredImage = $trickFormAdmin->get('featureimage')->getData();
               

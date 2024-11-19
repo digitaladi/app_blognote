@@ -42,7 +42,7 @@
 								{% if app.user %}
 								{{ app.user.username }}
 
-								<img src="https://i.pravatar.cc/100" alt="avatar" class="img-fluid rounded-circle ms-1" width="35"> {{ ux_icon('dashicons:arrow-down', {height:'20px', width:'20px'}) }}
+								<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="avatar" class="img rounded-circle ms-1" width="35" height="35"> {{ ux_icon('dashicons:arrow-down', {height:'20px', width:'20px'}) }}
 
 							{% else %}
 								{{ ux_icon('tabler:user-circle', {height:'30px', width:'30px'}) }}

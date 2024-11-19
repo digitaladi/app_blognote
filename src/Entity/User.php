@@ -6,16 +6,21 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 //cette prenne en compte les cycles de vie de doctrine 
 
 #[ORM\HasLifecycleCallbacks]
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 #[UniqueEntity(fields: ['username'], message: 'Il y a déja un compte avec ce pseudo')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -42,6 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Ignore()]
     #[ORM\Column]
     private ?string $password = null;
 
@@ -82,8 +88,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatar = null;
+
+
+
+        // NOTE: This is not a mapped field of entity metadata, just a simple property.
+        #[Vich\UploadableField(mapping: 'users_images', fileNameProperty: 'imageName')]
+       ##[Ignore()]
+        private ?File $imageFile = null;
+
+
+
+    
+        #[ORM\Column(nullable: true)]
+        private ?string $imageName = null;
+    
+ 
 
 
     public function __construct()
@@ -96,6 +115,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
+
+    /*
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'username' => $this->username
+            //......
+        ];
+    }
+*/
     //cycle de vie d'une entité. ici assigne une valeur à updateAt avant le persiste de l'entity User
 #[ORM\PrePersist]
     public function setUpdateAtValue(){
@@ -332,17 +363,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
+
+
+
+
+        /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->avatar;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updateAt = new \DateTimeImmutable();
+        }
     }
 
-    public function setAvatar(?string $avatar): static
+    public function getImageFile(): ?File
     {
-        $this->avatar = $avatar;
-
-        return $this;
+        return $this->imageFile;
     }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+
 
 
 }

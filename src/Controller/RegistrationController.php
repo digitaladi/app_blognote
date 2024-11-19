@@ -25,6 +25,7 @@ class RegistrationController extends AbstractController
     {
         $user = new User();
         $user->setRoles(['ROLE_USER']);
+     
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         //dd($user);
@@ -37,7 +38,9 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setActive(false);
+            
             $entityManager->persist($user);
+           // dd($user);
             $entityManager->flush();
 
             // do anything else you need here, like send an email

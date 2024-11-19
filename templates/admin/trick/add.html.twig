@@ -49,6 +49,16 @@
 
 	<div class="form-group">
 
+		{{ form_label(trickFormAdmin.public) }}
+		{{ form_widget(trickFormAdmin.public) }}
+		<div class="form-error">
+			{{ form_errors(trickFormAdmin.public) }}
+		</div>
+	</div>
+
+
+	<div class="form-group">
+
 		{{ form_label(trickFormAdmin.categorie) }}
 		{{ form_widget(trickFormAdmin.categorie) }}
 		<div class="form-error">
