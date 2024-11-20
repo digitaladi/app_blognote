@@ -21,6 +21,7 @@
 				<th scope="col">voir</th>
 				<th scope="col">Titre</th>
 				<th scope="col">Contenu de l'astuce</th>
+				<th scope="col">Auteur de l'astuce</th>
 				<th scope="col">Date</th>
 				<th scope="col">Actions</th>
 			</tr>
@@ -38,6 +39,7 @@
 					</th>
 					<td>{{ trick.title }}</td>
 					<td>{{ trick.content|slice(0, 50) }}...</td>
+					<td>{{ trick.user.username}}...</td>
 					<td>{{ trick.createdAt|date("d/m/Y") }}</td>
 					<td>
 

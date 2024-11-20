@@ -69,11 +69,13 @@ class TrickAdminController  extends AbstractController{
                 $trick->setUser($this->getUser());
                // $trick->setPublic(false);
               //  dd($featuredImage);
+
+              /*
                $featuredImage = $trickFormAdmin->get('featureimage')->getData();
               
                $image = $pictureService->square($featuredImage, '/tricks', 200);
                 $trick->setFeatureimage($image)   ;
-
+                */
 
 
                 //dd($slug);
@@ -99,7 +101,7 @@ class TrickAdminController  extends AbstractController{
 
 //  #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')] : n'est accessible que l'utilisateur connecté à qui appartient l'astuce trick
 //c'est pour éviter d'acceder à une astuce qui appartient à un autre utilisateur
-#[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
+//#[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
     #[Route('/edit/{id}', name:"edit", methods: ['GET', 'POST'])]
  
     /**
@@ -129,12 +131,14 @@ class TrickAdminController  extends AbstractController{
               //     dd($this->getUser());
                 $trick->setUser($trick->getUser());
               //  dd($featuredImage);
+
+              /*
                $featuredImage = $trickFormAdmin->get('featureimage')->getData();
               
                $image = $pictureService->square($featuredImage, '/tricks', 200);
                 $trick->setFeatureimage($image)   ;
 
-
+*/
 
                 //dd($slug);
                 //on assgine uen valeur au slug de  l'astuce
@@ -179,7 +183,7 @@ class TrickAdminController  extends AbstractController{
     }
 
 
-    #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
+ //   #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
     #[Route('/show/{id}', name:"show")]
     /**
      * Afficher une notation (coté admin)

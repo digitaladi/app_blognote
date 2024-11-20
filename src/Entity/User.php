@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Serializable;
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Serializer;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 //cette prenne en compte les cycles de vie de doctrine 
 
@@ -47,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[Ignore()]
+
     #[ORM\Column]
     private ?string $password = null;
 
@@ -91,10 +92,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
-        // NOTE: This is not a mapped field of entity metadata, just a simple property.
-        #[Vich\UploadableField(mapping: 'users_images', fileNameProperty: 'imageName')]
-       ##[Ignore()]
-        private ?File $imageFile = null;
+     // NOTE: This is not a mapped field of entity metadata, just a simple property.
+     #[Vich\UploadableField(mapping: 'users_images', fileNameProperty: 'imageName')]
+     ##[Ignore()]
+     private ?File $imageFile = null;
 
 
 
@@ -112,21 +113,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ratings = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
-
+     
     }
 
 
-    /*
+
+//permet de serialise
+        /**
+     * Return only the security relevant data
+     *
+     * @return array
+     */
     public function __serialize(): array
     {
         return [
             'id' => $this->id,
-            'email' => $this->email,
-            'username' => $this->username
-            //......
+            'password' => $this->password,
+            'username' => $this->username,
         ];
     }
-*/
+
+
+
+    //On sérialize les attributs id, username, password puis on les unserialize pour éviter que l'attribut imageFile soit pris en compte
+    //voir ce lien pour comprendre : https://webcoast.dk/en/blog/serializing-symfony-security-user-object
+    /**
+     * Restore security relevant data
+     *
+     * @param array $data
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+        $this->password = $data['password'];
+        $this->username = $data['username'];
+    }
+
     //cycle de vie d'une entité. ici assigne une valeur à updateAt avant le persiste de l'entity User
 #[ORM\PrePersist]
     public function setUpdateAtValue(){
@@ -404,5 +426,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
+
+
+
+    
 
 }

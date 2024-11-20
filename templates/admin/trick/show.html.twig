@@ -17,32 +17,31 @@
 	<hr>
 	<div class="wrap_show_admin">
 		<div class="wrap_admin_show_img">
-			<img src="{{ asset('uploads/tricks/') ~ trick.featureImage }}" alt="{{ trick.title }}">
-		</div>
-		<div>
-			<ul>
-				<li>
-					l'auteur :
-					{{ trick.user.username }}</li>
-				<li>La catégorie :
-					{{ trick.categorie.name  }}</li>
-				<li>Date de création :
-					{{ trick.createdAt|date("d/m/Y") }}</li>
-				<li>
-					La moyenne de l'astuce :
-					{% if trick.average is null %}
-						<strong>
-							Pas de note</strong>
-					{% else %}
-						<strong>{{trick.average }}/5</strong>
-					{% endif %}
 
-				</li>
-			</ul>
-
-		</div>
+			<img src="{{ vich_uploader_asset(trick, 'imageFile') }}" alt="{{ trick.imageName }}" width="500px"/></span>
 	</div>
+	<div>
+		<ul>
+			<li>
+				l'auteur :
+				{{ trick.user.username }}</li>
+			<li>La catégorie :
+				{{ trick.categorie.name  }}</li>
+			<li>Date de création :
+				{{ trick.createdAt|date("d/m/Y") }}</li>
+			<li>
+				La moyenne de l'astuce :
+				{% if trick.average is null %}
+					<strong>
+						Pas de note</strong>
+				{% else %}
+					<strong>{{trick.average }}/5</strong>
+				{% endif %}
 
-	<div>{{ trick.content }}</div>
+			</li>
+		</ul>
 
-{% endblock %}
+	</div>
+</div>
+
+<div>{{ trick.content|nl2br }}</div>{% endblock %}

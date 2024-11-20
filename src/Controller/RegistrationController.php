@@ -15,17 +15,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 //cette class  a été généné par la commande symfony console make:registration
 //c'est la route pour s'enrengistrer
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthentificatorAuthenticator $Authenticator, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager, JWTService $JWT, SendEmailService $mail): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthentificatorAuthenticator $Authenticator, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager, JWTService $JWT, SendEmailService $mail, SerializerInterface $serialiser): Response
     {
         $user = new User();
         $user->setRoles(['ROLE_USER']);
-     
+        
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         //dd($user);
@@ -38,7 +39,9 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setActive(false);
-            
+
+           // $serialiser->serialize($user, 'json');
+
             $entityManager->persist($user);
            // dd($user);
             $entityManager->flush();

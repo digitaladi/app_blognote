@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,6 +17,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 class AddTrickFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -44,38 +47,17 @@ class AddTrickFormType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('featureimage', FileType::class, [
-
-               'label' => 'Image d\'illustration',
-               'label_attr' =>[
-                'class' => 'form-label mt-4'
-            ],
-               'mapped' => false,
-              // 'multiple' => true,
-              'attr'=>[
-                'accept' => 'image/png, image/jpeg, image/webp',
-                 'class' => 'form-control'
-              ],
-               'constraints' => [
-            //    new All( //permet de mettre des contraintes sur plusieurs 
-                  
-                    new Image(
-                        minWidth: 200,
-                        maxWidth: 4000,
-                        minHeight: 200,
-                        maxHeight: 4000,
-                        allowPortrait: true,
-                        mimeTypes: [
-                            'image/jpeg',
-                            'image/png',
-                            'image/webp'
-                        ]
-                    )
-
-        //    ),
-
-            ]
-            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image d\'illustration',
+               // "mapped" => false,
+                'label_attr' =>[
+                 'class' => 'form-label mt-4'
+                ],
+                'attr'=>[
+                    'accept' => 'image/png, image/jpeg, image/webp',
+                     'class' => 'form-control'
+                  ],
+                ])
 
 /*
             ->add('user', EntityType::class, [
@@ -84,6 +66,17 @@ class AddTrickFormType extends AbstractType
             ])
 
   */
+
+            ->add('public', CheckboxType::class, [
+                'label' => 'Voulez vous rendre public l\'astuce ?',
+                'attr' => [
+                    'class' => 'form-check-input mt-4'
+                ],
+                    
+                'label_attr' =>[
+                    'class' => 'form-check-label mt-4 me-1'
+                ],
+            ])
 
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,

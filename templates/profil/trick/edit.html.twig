@@ -37,18 +37,22 @@
 
 
 	<div class="form-group">
-		{{ form_label(trickFormProfil.featureimage) }}
-		{{ form_widget(trickFormProfil.featureimage) }}
+		{{ form_label(trickFormProfil.imageFile) }}
+		{{ form_widget(trickFormProfil.imageFile) }}
 		<div class="form-error">
-			{{ form_errors(trickFormProfil.featureimage) }}
+			{{ form_errors(trickFormProfil.imageFile) }}
 		</div>
 
-		<div class="preview">
-			<img src="" alt="" width="300"/>
-		</div>
 	</div>
 
+	<div class="form-group">
 
+		{{ form_label(trickFormProfil.public) }}
+		{{ form_widget(trickFormProfil.public) }}
+		<div class="form-error">
+			{{ form_errors(trickFormProfil.public) }}
+		</div>
+	</div>
 	<div class="form-group">
 
 		{{ form_label(trickFormProfil.categorie) }}

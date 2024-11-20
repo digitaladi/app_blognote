@@ -24,7 +24,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class TrickProfileController extends AbstractController
 {
 
-    //on éxcécute cette fonction que si on n'a le role user
+   //on éxcécute cette fonction que si on n'a le role user
    // #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'index')]
     public function index(TrickRepository $trickRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
@@ -72,13 +72,6 @@ class TrickProfileController extends AbstractController
                 $slug = strtolower($slugger->slug($trick->getTitle()) );
               //     dd($this->getUser());
                 $trick->setUser($this->getUser());
-                $trick->setPublic(false);
-              //  dd($featuredImage);
-               $featuredImage = $trickForm->get('featureimage')->getData();
-              
-               $image = $pictureService->square($featuredImage, '/tricks', 200);
-                $trick->setFeatureimage($image)   ;
-
 
 
                 //dd($slug);
@@ -135,12 +128,14 @@ class TrickProfileController extends AbstractController
               //     dd($this->getUser());
                 $trick->setUser($trick->getUser());
               //  dd($featuredImage);
+
+              /*
                $featuredImage = $trickFormProfil->get('featureimage')->getData();
               
                $image = $pictureService->square($featuredImage, '/tricks', 200);
                 $trick->setFeatureimage($image)   ;
 
-
+*/
 
                 //dd($slug);
                 //on assgine uen valeur au slug de  l'astuce

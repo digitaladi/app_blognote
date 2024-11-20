@@ -37,17 +37,15 @@ class MainController extends AbstractController
        // dd($formTrcikByCategorie);
        //tous les atuces qui sont actif
       $trickByCategory = $trickRepository->findBy(['public' => true]);
+    
        $categories =   $categorieRepository->tricksByCategory();
+       //dd($trickByCategory);
+     //dd($formTrcikByCategorie);
       // $tricks  = $trickRepository->trickByCategory();
       // dd($trickByCategory);
 
 
-        $tabsfinals = [];
 
-        foreach ($categories as $key => $value) {
-            $tabsfinals[$value['name']] = $value['tricks'];
-            //dd($value['name'] = $value['tricks']);
-        }
 
 
      //  dd($tabsfinals);
@@ -58,7 +56,7 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig', [
             'tricks' => $trickByCategory,
             'categories' => $categories,
-            'is_actif' => true,
+       
             'formTrcikByCategorie' =>$formTrcikByCategorie
         ]);
     }
