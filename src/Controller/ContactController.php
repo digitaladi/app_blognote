@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Service\SendEmailService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManagerInterface $em): Response
+    public function index(Request $request, EntityManagerInterface $em, SendEmailService $sendEmailService): Response
     {
         $contact = new Contact();
 
@@ -35,6 +36,18 @@ class ContactController extends AbstractController
             //dd($formContact->getData());
             $em->persist($contact);
             $em->flush();
+           
+
+            //l'utilisateur envoie une demande par mail
+            $sendEmailService->send(
+                $this->getUser() ?  $this->getUser()->getEmail() : $formContact->getData()->getEmail(),
+                'no-reply@blognote.test', //l'email sera reçu sur cet adresse
+                $contact->getSubject(),
+                'contact', //le template
+                compact('contact', ) // ['user' => $user, token => $token]
+
+
+            );
             $this->addFlash('success', 'Votre demande a été envoyé !' );
             return $this->redirectToRoute('app_contact');
         }
