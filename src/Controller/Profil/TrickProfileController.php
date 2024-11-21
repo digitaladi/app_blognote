@@ -181,7 +181,7 @@ class TrickProfileController extends AbstractController
 
 
 
-
+        #[IsGranted(new Expression('user === subject.getUser()'), subject: 'trick')]
         #[Route('/delete/{id}', name:"delete")]
         /**
          * Supprimer une astuce (coté profil)
