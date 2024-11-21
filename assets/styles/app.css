@@ -113,7 +113,7 @@ width: 400px;
 }
 
 
-.social-list{
+.social-list{   
     display:flex;
     list-style:none;
     justify-content:center;
