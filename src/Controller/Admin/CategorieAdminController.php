@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Categorie;
 use App\Form\AddCategorieFormType;
+use App\Form\ColorType;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,6 +55,8 @@ class CategorieAdminController extends AbstractController
             $categorie = new Categorie();
             $formCategorie = $this->createForm(AddCategorieFormType::class, $categorie);
 
+            $formcolor = $this->createForm(ColorType::class);
+
             $formCategorie->handleRequest($request);
            
 
@@ -78,6 +81,7 @@ class CategorieAdminController extends AbstractController
 
         return $this->render('admin/categorie/add.html.twig', [
             'formCategorie' => $formCategorie,
+            'formcolor' => $formcolor
         ]);
     }
 

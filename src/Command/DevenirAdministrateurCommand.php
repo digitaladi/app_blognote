@@ -32,8 +32,9 @@ class DevenirAdministrateurCommand extends Command
 
     protected function configure(): void
     {
+        //ajout d'argument de commande
         $this
-            ->addArgument('email', InputArgument::OPTIONAL, 'Email du utilisateur concernée')
+            ->addArgument('email', InputArgument::OPTIONAL, 'Email de l\'utilisateur concernée')
             //->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
@@ -42,7 +43,10 @@ class DevenirAdministrateurCommand extends Command
     {
      
         $io = new SymfonyStyle($input, $output);
+
         $helper = $this->getHelper('question');
+
+        
         $emailArg = $input->getArgument('email');
 
         if(!$emailArg){

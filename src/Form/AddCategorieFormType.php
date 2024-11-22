@@ -4,14 +4,17 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use App\Entity\Trick;
+use App\Form\ColorType;
 use App\Repository\CategorieRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AddCategorieFormType extends AbstractType
 {
@@ -29,6 +32,18 @@ class AddCategorieFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
+            ])
+
+            //ce champs est un formulaire imbriqué ColorType
+            //noublier pas de mettre nul à data class dans ColorType $resolver->setDefaults  'data_class' => null,
+            ->add('color', ColorType::class, [
+               // 'entry_type' => ColorType::class,
+                'label' => 'Choisir la couleur de categorie ',
+                'label_attr' =>[
+                    'class' => 'form-label mt-4 me-2'
+                ],
+
+    
             ])
 
             ->add('parent', EntityType::class, [
