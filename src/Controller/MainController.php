@@ -15,10 +15,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
 class MainController extends AbstractController
 {
 
+/*
+    private function testCache($data){
+      dd($data);
+        sleep(3);
+       return $data;
+    }
+*/
 
     /**
      * Undocumented function
@@ -30,19 +38,44 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(TrickRepository $trickRepository, CategorieRepository $categorieRepository,  EntityManagerInterface $entityManagerInterface): Response
     {
+      
+   
+
+
+      $trickByCategory = $trickRepository->trickByCategory();
 
 
 
-        $formTrcikByCategorie = $this->createForm(GetTrickByCategorieFormType::class);
-       // dd($formTrcikByCategorie);
-       //tous les atuces qui sont actif
-      $trickByCategory = $trickRepository->findBy(['public' => true]);
+      // $trickByCategory = $trickRepository->findBy(['public' => true]);
+
+      
+      //on récupère le cache
+      //$cache = new FilesystemAdapter();
+      
+
+       //on va mettre le contenu dans le cache à qui on attribue une clé ici trick_key
+
+       //trick_key est la clé avec le quel le cache est identifié
+       //la fonction callback va retourner l'item dans lequel se trouve le data et la durée de la disponibilité du cache
+
+
+       //ATTENTION LE COMPOSANT CACHE NE MARCHE PAS  AVEC LES RELATIONS POUR BIEN FAIRE IL FAUT SERIALISER LES CHAMPS DES ENTITES RELATIONNELLES IMPLIQUÉS
+
+       /*
+       $trickByCategory =  $cache->get('trick_key', function(ItemInterface $item) use ($trickRepository){
+       $item->expiresAfter(35);
+       return $trickRepository->trickByCategory();
+
+       });
+
+*/
+  
     
-       $categories =   $categorieRepository->tricksByCategory();
+      // $categories =   $categorieRepository->tricksByCategory();
        //dd($trickByCategory);
      //dd($formTrcikByCategorie);
       // $tricks  = $trickRepository->trickByCategory();
-      // dd($trickByCategory);
+     //  dd($trickByCategory);
 
 
 
@@ -54,10 +87,10 @@ class MainController extends AbstractController
         
         //$tab = [ "kevin", "joe", "rambo"];
         return $this->render('main/index.html.twig', [
-            'tricks' => $trickByCategory,
-            'categories' => $categories,
+            'tricks' =>     $trickByCategory,
+         //   'categories' => $categories,
        
-            'formTrcikByCategorie' =>$formTrcikByCategorie
+         //   'formTrcikByCategorie' =>$formTrcikByCategorie
         ]);
     }
 

@@ -31,3 +31,17 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+
+    send_email_service:
+        class: App\Service\SendEmailService
+
+
+
+
+    trick_listener:
+        class: App\EntityListener\TrickListener
+        #arguments: [ mailer.transport_factory.sendmail ]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

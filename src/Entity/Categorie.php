@@ -47,6 +47,43 @@ class Categorie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $color = null;
 
+    
+
+
+//permet de serialise
+        /**
+     * Return only the security relevant data
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'color' => $this->color
+        ];
+    }
+
+
+
+    //On sérialize les attributs id, username, password puis on les unserialize pour éviter que l'attribut imageFile soit pris en compte
+    //voir ce lien pour comprendre : https://webcoast.dk/en/blog/serializing-symfony-security-user-object
+    /**
+     * Restore security relevant data
+     *
+     * @param array $data
+     */
+    public function __unserialize(array $data): void
+    {
+    
+        $this->id = $data['id'];
+        $this->color = $data['color'];
+        $this->name = $data['name'];
+      
+    }
+
+
 
 
     public function __toString() 

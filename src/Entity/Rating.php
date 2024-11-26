@@ -42,6 +42,39 @@ class Rating
     private ?\DateTimeImmutable $createdAt = null;
 
 
+        /**
+     * Return only the security relevant data
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'note' => $this->note,
+            'trick' => $this->trick
+          
+        ];
+    }
+
+
+
+    //On sérialize les attributs id, username, password puis on les unserialize pour éviter que l'attribut imageFile soit pris en compte
+    //voir ce lien pour comprendre : https://webcoast.dk/en/blog/serializing-symfony-security-user-object
+    /**
+     * Restore security relevant data
+     *
+     * @param array $data
+     */
+    public function __unserialize(array $data): void
+    {
+    
+        $this->id = $data['id'];
+        $this->note = $data['note'];
+        $this->trick = $data['trick'];
+
+      
+    }
 
 
     public function __construct()

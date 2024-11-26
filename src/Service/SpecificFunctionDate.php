@@ -9,7 +9,7 @@ use DateTimeImmutable;
 
 class SpecificFunctionDate {
 
-    public function __construct(String $var = null) {
+    public function __construct(?String $var = null) {
        // $this->var = $var;
     }
 

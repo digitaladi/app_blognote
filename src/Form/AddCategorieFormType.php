@@ -43,6 +43,10 @@ class AddCategorieFormType extends AbstractType
                     'class' => 'form-label mt-4 me-2'
                 ],
 
+                'attr' => [
+                    'class' => 'm-2 p-1 form-control-color'
+                 ],
+
     
             ])
 

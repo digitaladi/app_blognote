@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
+#[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
@@ -76,6 +77,9 @@ class Trick
 
 
 
+
+
+
      // NOTE: This is not a mapped field of entity metadata, just a simple property.
      #[Vich\UploadableField(mapping: 'tricks_images', fileNameProperty: 'imageName')]
      ##[Ignore()]
@@ -83,6 +87,15 @@ class Trick
 
      #[ORM\Column(nullable: true)]
      private ?string $imageName = null;
+
+
+
+
+
+
+ 
+
+
 
     public function __construct()
     {
