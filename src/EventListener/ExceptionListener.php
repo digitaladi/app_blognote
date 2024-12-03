@@ -60,7 +60,7 @@ if($event->getRequest()->server->get('APP_ENV') === 'prod'){
 
 
 
-
+/*
 
             if($response->getStatusCode() === 404){
                 $message =  "Désolé, la page que vous cherchez est introuvable";
@@ -69,7 +69,7 @@ if($event->getRequest()->server->get('APP_ENV') === 'prod'){
             }elseif($exception->getStatusCode() === 500){
                 $message = "Une erreur de serveur est survenu";
             }
-
+*/
 
      //   dd($response->getStatusCode());
         $htmlContent =  $this->twig->render('errors/exception_error.html.twig', ['statusCode' => $response->getStatusCode(), 'message' => $message, 'urlhome' =>$urlhome]);

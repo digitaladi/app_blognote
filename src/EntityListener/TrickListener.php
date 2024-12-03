@@ -42,6 +42,8 @@ sachant qu'on accede à lentité trick par LifecycleEventArgs $args qui contien 
     {
        // dd($args);
         $trick = $args->getObject();
+     //   dd($trick);
+        if($trick instanceof Trick){
       //  dd($trick->getUser()->getEmail());
         $email = (new TemplatedEmail())
         ->from($trick->getUser()->getEmail())
@@ -49,11 +51,11 @@ sachant qu'on accede à lentité trick par LifecycleEventArgs $args qui contien 
         ->subject("Ajout d'astuce de la part de ". $trick->getUser()->getUsername() )
         ->htmlTemplate("emails/trick_notified.html.twig")
         ->context(compact('trick') ); 
+            
 
-        
         $this->mailer->send($email);
         
-       
+    }
     }
 
 

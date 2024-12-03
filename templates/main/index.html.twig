@@ -36,33 +36,33 @@
 
 
 	{#
-																																																																																																<ul class="nav nav-pills nav-justified mt-4 p-2 border rounded-5">
-																																																																																																	<li class="nav-item text-color-blognote">
-																																																																																																		{{ ux_icon('icon-park-outline:sport', {height:'30px', width:'30px'}) }}
-																																																																																																		<a class="nav-link" aria-current="page" href="#">Sport</a>
-																																																																																																	</li>
-																																																																																																	<li class="nav-item text-color-blognote">
-																																																																																																		{{ ux_icon('lucide:computer', {height:'30px', width:'30px'}) }}
-																																																																																																		<a class="nav-link" href="#">Informatique</a>
-																																																																																																	</li>
-																																																																																																	<li class="nav-item text-color-blognote">
-																																																																																																		{{ ux_icon('mage:health-square',{height:'30px', width:'30px'}) }}
-																																																																																																		<a class="nav-link" href="#">Santé</a>
-																																																																																																	</li>
-																																																																																																	<li class="nav-item text-color-blognote">
-																																																																																																		{{ ux_icon('game-icons:auto-repair',{height:'30px', width:'30px'}) }}
-																																																																																																		<a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Bricolage</a>
-																																																																																																	</li>
-																																																																																																</ul>
-																																																																																															
-																																																																																															
-																																																																																																<div class="mt-1">
-																																																																																																	<a href="#">
-																																																																																																		réinitialiser
-																																																																																																		{{ ux_icon('system-uicons:reset',{height:'20px', width:'20px'}) }}</a>
-																																																																																																</div>
-																																																																																															
-																																																																																																#}
+																																																																																																					<ul class="nav nav-pills nav-justified mt-4 p-2 border rounded-5">
+																																																																																																						<li class="nav-item text-color-blognote">
+																																																																																																							{{ ux_icon('icon-park-outline:sport', {height:'30px', width:'30px'}) }}
+																																																																																																							<a class="nav-link" aria-current="page" href="#">Sport</a>
+																																																																																																						</li>
+																																																																																																						<li class="nav-item text-color-blognote">
+																																																																																																							{{ ux_icon('lucide:computer', {height:'30px', width:'30px'}) }}
+																																																																																																							<a class="nav-link" href="#">Informatique</a>
+																																																																																																						</li>
+																																																																																																						<li class="nav-item text-color-blognote">
+																																																																																																							{{ ux_icon('mage:health-square',{height:'30px', width:'30px'}) }}
+																																																																																																							<a class="nav-link" href="#">Santé</a>
+																																																																																																						</li>
+																																																																																																						<li class="nav-item text-color-blognote">
+																																																																																																							{{ ux_icon('game-icons:auto-repair',{height:'30px', width:'30px'}) }}
+																																																																																																							<a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Bricolage</a>
+																																																																																																						</li>
+																																																																																																					</ul>
+																																																																																																				
+																																																																																																				
+																																																																																																					<div class="mt-1">
+																																																																																																						<a href="#">
+																																																																																																							réinitialiser
+																																																																																																							{{ ux_icon('system-uicons:reset',{height:'20px', width:'20px'}) }}</a>
+																																																																																																					</div>
+																																																																																																				
+																																																																																																					#}
 	<!-- Tabs content -->
 
 	<div class="border-top border-end border-start p-4">
@@ -142,7 +142,7 @@
 			</div>
 			<div class="footer">
 				<p>
-					<a class="waves-effect waves-light btn-primary btn" href="{{ path('main.show.trick',{id: trick.id}) }}">Voir l'astuce</a>
+					<a class="waves-effect waves-light btn-primary btn" href="{{ path('main.show.trick',{id: trick.id, slug: trick.slug}) }}">Voir l'astuce</a>
 
 
 					<a id="heart">
@@ -160,7 +160,7 @@
 							{{ ux_icon('fa-regular:comments',{height:'15px', width:'15px'}) }}</span>
 						<span>
 							{{ trick.comments|length }}
-							Commentaires</span>
+						</span>
 					</p>
 				</div>
 			</div>

@@ -40,7 +40,7 @@ class LocalhostFalseSubscriber implements EventSubscriberInterface
         // ...
     }
 
-
+    
     //la liste des evenements à écouter dans un tableau ['evenement' => ['methodAexécuter', priority]]
     public static function getSubscribedEvents(): array
     {

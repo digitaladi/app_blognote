@@ -102,56 +102,77 @@
 
 <div class=" mt-4 row d-flex">
 	<div class="col-md-12 col-lg-10 col-xl-8">
+		<p>
+			{{ comments|length }}
+			commentaires</p>
 		<div class="card">
-			<div class="card-body">
-				<div class="d-flex flex-start align-items-center">
 
-					<img src="{{ vich_uploader_asset(trick.user, 'imageFile') }}" alt="avatar" class="rounded-circle shadow-1-strong me-3" width="60" height="60">
-					<div>
-						<h6 class="fw-bold text-primary mb-1">{{ trick.user.username }}</h6>
-						<p class="text-muted small mb-0">
-							Le
-							{{ trick.createdAt|date("d/m/Y") }}
-						</p>
+			{% for comment in comments %}
+
+
+				<div class="card-body ">
+					<div class="d-flex flex-start align-items-center ">
+
+						<img src="{{ vich_uploader_asset(comment.user, 'imageFile') }}" alt="avatar" class="rounded-circle shadow-1-strong me-3" width="40" height="40">
+						<div>
+							<h6 class="fw-bold text-primary mb-1">{{ comment.user.username }}</h6>
+							<p class="text-muted small mb-0">
+								Le
+								{{ comment.createAt|date("d/m/Y") }}
+							</p>
+						</div>
+					</div>
+
+					<div class="mt-3 mb-4 pb-2 border-bottom">
+						<p>{{ comment.content|nl2br }}</p>
+						<p class="text-end mb-0 text-primary">Répondre
+							{{ ux_icon('ri:reply-fill', {height:'20px', width:'20px'}) }}</p>
+					</div>
+
+
+				</div>
+
+
+			{% endfor %}
+
+			{% if app.user %}
+
+
+				<div class="card-footer py-3 border-0">
+					<div class="d-flex flex-start w-100">
+
+						<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="avatar" class="rounded-circle shadow-1-strong me-3" width="40" height="40">
+
+						<div data-mdb-input-init class="form-outline w-100">
+							<div>
+								{{ form(formComment) }}
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
-				<p class="mt-3 mb-4 pb-2">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															              quis nostrud exercitation ullamco laboris nisi ut aliquip consequat.
-				</p>
-				{#
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<div class="small d-flex justify-content-start">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<a href="#!" class="d-flex align-items-center me-3">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<i class="far fa-thumbs-up me-2"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<p class="mb-0">Like</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<a href="#!" class="d-flex align-items-center me-3">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<i class="far fa-comment-dots me-2"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<p class="mb-0">Comment</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<a href="#!" class="d-flex align-items-center me-3">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<i class="fas fa-share me-2"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<p class="mb-0">Share</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		                    #}
-			</div>
-			<div class="card-footer py-3 border-0">
-				<div class="d-flex flex-start w-100">
-					<img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40" height="40"/>
-					<div data-mdb-input-init class="form-outline w-100">
-						<textarea class="form-control" id="textAreaExample" rows="4"></textarea>
-						<label class="form-label" for="textAreaExample">Message</label>
+			{% else %}
+				<div class="card-footer py-3 border-0">
+					<div class="d-flex flex-start w-100">
+
+
+						<div data-mdb-input-init class="form-outline w-100">
+							<div>
+								<p class="connect_pour_commenter float-end  btn btn-primary m-2 mb-4">
+									<a href="{{ path('app_login') }}">Connectez-vous pour commenter</a>
+								</p>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="float-end mt-2 pt-1">
-					<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm">Poster le commentaire</button>
 
 				</div>
 			</div>
-		</div>
+
+		{% endif %}
 	</div>
-</div>{% endblock %}
+</div>{% endblock %}{#
+		
+				<p class="connect_pour_commenter float-end  btn btn-primary m-2 mb-4">Connectez-vous pour commenter</p>
+		#}

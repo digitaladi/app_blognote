@@ -102,6 +102,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
         #[ORM\Column(nullable: true)]
         private ?string $imageName = null;
+
+        #[ORM\Column(nullable: true)]
+        private ?\DateTimeImmutable $lastLogin = null;
+
+
     
  
 
@@ -426,6 +431,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->imageName;
     }
+
+    public function getLastLogin(): ?\DateTimeImmutable
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeImmutable $lastLogin): static
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
 
 
 

@@ -3,20 +3,24 @@
 // 
 namespace App\Controller;
 
-use App\Entity\Rating;
 use App\Entity\Trick;
-use App\Form\GetTrickByCategorieFormType;
+use App\Entity\Rating;
+use App\Entity\Comment;
 use App\Form\RatingType;
-use App\Repository\CategorieRepository;
-use App\Repository\RatingRepository;
+use App\Form\FormProfilCommentType;
 use App\Repository\TrickRepository;
+use App\Repository\RatingRepository;
+use App\Repository\CommentRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\GetTrickByCategorieFormType;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 class MainController extends AbstractController
 {
 
@@ -122,21 +126,37 @@ return $this->render('main/trickday.html.twig');
 
 
 
-#[Route('main/trick/show/{id}', name:"main.show.trick")]
+#[Route('main/trick/show/{id}-{slug}', name:"main.show.trick")]
 /**
  * Afficher une astuce (coté profil)
  *
  * @param Trick $trick
  * @return Response
  */
-public function show(Trick $trick,RatingRepository $ratingRepository, EntityManagerInterface $em, Request $request): Response{
+public function show(Trick $trick,RatingRepository $ratingRepository, $slug, EntityManagerInterface $em, Request $request, CommentRepository $commentRepository ): Response{
     
+
+  //récuperer tous les commentaires
+  $comments = $commentRepository->findAll();
+
+  //dd($comments);
+
   // dd($trick);
   if(!$trick){
     throw $this->createNotFoundException("Cette astuce n'existe pas ");
    }
 
-   $rating = new Rating() ;
+
+   //si le slug ne correspond pas on met le bonne route
+   if($trick->getSlug() !== $slug) {
+    return $this->redirectToRoute('main.show.trick', [
+        'id' => $trick->getId(),
+        'slug' => $trick->getSlug()
+    ]);
+}
+
+
+  $rating = new Rating() ;
 
   $formRating = $this->createForm(RatingType::class, $rating);
   //dd($formRating->getData());
@@ -150,7 +170,7 @@ public function show(Trick $trick,RatingRepository $ratingRepository, EntityMana
  
     if($trick->getUser() == $this->getUser()){
         $this->addFlash('warning', 'Vous ne pouvez pas noter votre propre astuce !' );
-        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId(), 'slug' => $trick->getSlug()));
     }
 
 
@@ -161,19 +181,51 @@ public function show(Trick $trick,RatingRepository $ratingRepository, EntityMana
 
       //  dd($rating);
         $this->addFlash('warning', 'l\'astuce "'. $trick->getTitle(). '" a été noté !' );
-        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId(), 'slug' => $trick->getSlug()));
     }else{
         $this->addFlash('success', 'Vous avez déja noté cette astuce' );
-        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId()));
+        return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId(),  'slug' => $trick->getSlug()));
     }
 
   
   }
 
 
+
+
+
+
+
+  $comment = new Comment();
+  $formComment = $this->createForm(FormProfilCommentType::class, $comment );
+  
+  $formComment->handleRequest($request);
+
+  if($formComment->isSubmitted() && $formComment->isValid()){
+
+   //dd($comment);
+    $comment->setTrick($trick);
+    $comment->setUser($this->getUser());
+    $comment->setIsReply(false);
+   //dd($trick);
+   //dd($comment);
+   $em->persist($comment);
+   $em->flush();
+   $this->addFlash('success', 'Commentaire posté' );
+   return $this->redirectToRoute('main.show.trick', array('id' => $trick->getId(), 'slug' => $trick->getSlug()));
+  
+  }
+
+
+//dd($trick);
+
+
     return $this->render('main/showTrick.html.twig', [
         'trick' => $trick,
-        'formRating' => $formRating
+        'formRating' => $formRating,
+        'formComment' => $formComment,
+        'comments' => $comments
+        
     ]);
 }
 
