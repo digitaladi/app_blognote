@@ -5,6 +5,10 @@
 {% endblock %}
 
 
+{% block importmap %}
+	{{ importmap(['app', 'add-trick']) }}
+{% endblock %}
+
 {% block body %}
 
 
@@ -104,6 +108,8 @@
 		<div class="card">
 
 			{% for comment in comments %}
+
+
 				<div class="card-body ">
 					<div class="d-flex flex-start align-items-center ">
 
@@ -119,8 +125,7 @@
 
 					<div class="mt-3 mb-4 pb-2 border-bottom">
 						<p>{{ comment.content|nl2br }}</p>
-						<p class="text-end mb-0 text-primary">
-							<a class="text-primary" href="#add-comment" data-reply data-id="{{ comment.id }}">Répondre</a>
+						<p class="text-end mb-0 text-primary">Répondre
 							{{ ux_icon('ri:reply-fill', {height:'20px', width:'20px'}) }}</p>
 					</div>
 
@@ -133,13 +138,13 @@
 			{% if app.user %}
 
 
-				<div class="card-footer py-3 border-0" id="add-comment">
+				<div class="card-footer py-3 border-0">
 					<div class="d-flex flex-start w-100">
 
 						<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="avatar" class="rounded-circle shadow-1-strong me-3" width="40" height="40">
 
 						<div data-mdb-input-init class="form-outline w-100">
-							<div id="wrap-form-comment">
+							<div>
 								{{ form(formComment) }}
 								</div>
 							</div>
@@ -168,6 +173,6 @@
 		{% endif %}
 	</div>
 </div>{% endblock %}{#
-																														
-																																<p class="connect_pour_commenter float-end  btn btn-primary m-2 mb-4">Connectez-vous pour commenter</p>
-																														#}
+		
+				<p class="connect_pour_commenter float-end  btn btn-primary m-2 mb-4">Connectez-vous pour commenter</p>
+		#}

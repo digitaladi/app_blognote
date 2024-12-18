@@ -1,13 +1,13 @@
-console.log("je suis dans le fichier js scripts.js")
+console.log(window.document.URL)
 
 
-/*
+
 document.getElementById("heart").onclick = function(){
 
     document.querySelector(".fa-gratipay").style.color = "#E74C3C";
 };
 
-*/
+
 
 
 
@@ -15,9 +15,6 @@ document.getElementById("heart").onclick = function(){
 
 
 //TRAITEMENT DU TAB DANS LA PAGE HOME
-
-
-/*
 
 var elements = document.getElementById("lien_tab").getElementsByClassName("nav-link");
 Array.prototype.forEach.call(elements, function(el) {
@@ -34,4 +31,3 @@ Array.prototype.forEach.call(elements, function(el) {
 
 
 });
-*/

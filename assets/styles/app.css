@@ -184,9 +184,8 @@ width: 400px;
 .txt5{
     position: relative;
     top: 24px;
-    color: #535353 !important;
+    color: #E74C3C;
     font-size: 23px;
-    padding: 10px !important;
 }
 .txt2{
     position: relative;
@@ -223,10 +222,10 @@ width: 400px;
     float: right;
     font-size: 22px;
     position: absolute;
-    top: -376px;
+    top: -390px;
     color: white;
     width: 40px;
-    left: 270px;
+    left: 264px;
     cursor: pointer;
 }
 
@@ -302,6 +301,11 @@ color: rgb(232 50 131) !important;
 }
 
 
+.txt5 {
+
+    color: rgb(232 50 131) !important;
+ 
+}
 
 
 
