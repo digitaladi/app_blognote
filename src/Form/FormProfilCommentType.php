@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -28,12 +29,16 @@ class FormProfilCommentType extends AbstractType
                     "rows" => 4
                 ],
             ])
-
+            
             ->add('submit', SubmitType::class, [
                 'label' => 'Poster le commentaire',
                 'attr' => [
                     'class' => 'btn btn-primary mt-2 float-end mb-2'
                 ]
+            ])
+            //form_profil_comment_comment_id
+            ->add('comment_id', HiddenType::class, [
+                'mapped' => false
             ])
 
 

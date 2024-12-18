@@ -26,7 +26,7 @@ class LogoutSubscriber implements EventSubscriberInterface
     public function onEventLogout($event): void
     {
 
-        $urlhome = $event->getRequest()->server->get('HTTP_HOST');
+       // $urlhome = $event->getRequest()->server->get('HTTP_HOST');
         $user = $event->getToken()->getUser();
 
         if (!$user instanceof User) {

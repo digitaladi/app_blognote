@@ -5,7 +5,7 @@
 
 {# il va aller chercher dans le fichier importmap.php et va trouver le entrypoint app puis va charger le fichier js correspondant  #}
 {% block importmap %}
-	{{ importmap(['app', 'register']) }}
+
 	{{ importmap(['app']) }}
 {% endblock %}
 
@@ -32,14 +32,14 @@
 		{{ form_row(registrationForm.password) }}
 
 		{#
-																														<div>
-																															<p>Compléxité du mot de passe  :
-																																<span id="entropy" class="text-red">
-																																	Très faible
-																																</span>
-																																(La compléxité minimale acceptée est "fort")</p>
-																														</div>
-																											#}
+																																<div>
+																																	<p>Compléxité du mot de passe  :
+																																		<span id="entropy" class="text-red">
+																																			Très faible
+																																		</span>
+																																		(La compléxité minimale acceptée est "fort")</p>
+																																</div>
+																													#}
 	</div>
 
 	<div class="form-group">

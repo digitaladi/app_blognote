@@ -1,3 +1,6 @@
+console.log("je suis dans le fichier js register.js")
+/*
+
 let pseudo = false
 let email = false
 let rgpd = false
@@ -15,7 +18,7 @@ document.querySelector("#registration_form_plainPassword").addEventListener('inp
 
 function checkPseudo(){
 pseudo = this.value.length > 2;
-console.log(pseudo);
+//console.log(pseudo);
 checkAll();
 
 }
@@ -177,3 +180,5 @@ function checkAll(){
         document.querySelector("#submit-button").removeAttribute("disabled")
     }
 }
+
+*/

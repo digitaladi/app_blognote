@@ -16,14 +16,12 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-
-    
     'register' => [
         'path' => './assets/js/register.js',
         'entrypoint' => true,
     ],
-    'add-trick' => [
-        'path' => './assets/js/addTrick.js',
+    'add-response-comment' => [
+        'path' => './assets/js/addResponseComment.js',
         'entrypoint' => true,
     ],
     '@hotwired/stimulus' => [
@@ -33,6 +31,6 @@ return [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
     '@hotwired/turbo' => [
-        'version' => '7.3.0',
+        'version' => '8.0.12',
     ],
 ];
